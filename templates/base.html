@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FinQuest{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% if session.user_id %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinQuest</h1>
+            </div>
+            <div class="nav-user">
+                <div class="user-avatar">
+                    <div class="avatar-circle">
+                        <span class="level-text">{{ user.level if user else 1 }}</span>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-email">{{ session.user_email }}</div>
+                    <div class="xp-bar">
+                        <div class="xp-progress" id="xp-progress" data-progress="{{ user.xp_progress_percentage() if user else 0 }}"></div>
+                        <span class="xp-text" id="xp-text">{{ user.xp if user else 0 }} XP</span>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                            <button class="flash-close">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}
+    <script>
+        // Close flash messages
+        document.querySelectorAll('.flash-close').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(msg => {
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 300);
+            });
+        }, 5000);
+
+        // Initialize XP progress bar
+        function initializeXPBar() {
+            const progressBar = document.getElementById('xp-progress');
+            if (progressBar) {
+                const progress = progressBar.getAttribute('data-progress') || 0;
+                progressBar.style.width = progress + '%';
+            }
+        }
+
+        // Update user stats periodically
+        function updateUserStats() {
+            if (document.getElementById('xp-progress')) {
+                fetch('/api/user_stats')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('xp-progress').style.width = data.progress_percentage + '%';
+                        document.getElementById('xp-text').textContent = data.xp + ' XP';
+                        document.querySelector('.level-text').textContent = data.level;
+                    })
+                    .catch(error => console.error('Error updating stats:', error));
+            }
+        }
+
+        // Initialize on page load
+        initializeXPBar();
+
+        // Update stats every 30 seconds
+        setInterval(updateUserStats, 30000);
+    </script>
+    {% endblock %}
+</body>
+</html>

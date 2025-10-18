@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Learning Zone - FinQuest{% endblock %}
+
+{% block content %}
+<div class="learning-container">
+    <div class="learning-header">
+        <h1>📚 Learning Zone</h1>
+        <p>Expand your financial knowledge through interactive lessons</p>
+        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+    </div>
+    
+    <div class="lessons-grid">
+        <div class="lesson-card" data-lesson="budgeting">
+            <div class="lesson-icon">💰</div>
+            <h3>Budgeting Basics</h3>
+            <p>Learn how to create and manage a personal budget</p>
+            <div class="lesson-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">0% Complete</span>
+            </div>
+        </div>
+        
+        <div class="lesson-card" data-lesson="saving">
+            <div class="lesson-icon">🏦</div>
+            <h3>Smart Saving</h3>
+            <p>Discover effective strategies for building your savings</p>
+            <div class="lesson-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">0% Complete</span>
+            </div>
+        </div>
+        
+        <div class="lesson-card" data-lesson="investing">
+            <div class="lesson-icon">📈</div>
+            <h3>Investment Fundamentals</h3>
+            <p>Understand the basics of investing and growing wealth</p>
+            <div class="lesson-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">0% Complete</span>
+            </div>
+        </div>
+        
+        <div class="lesson-card" data-lesson="debt">
+            <div class="lesson-icon">🏗️</div>
+            <h3>Debt Management</h3>
+            <p>Learn strategies to manage and eliminate debt effectively</p>
+            <div class="lesson-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text">0% Complete</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-modal" id="lessonModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Lesson Title</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="lesson-content">
+                    <div class="lesson-section">
+                        <h3>What you'll learn:</h3>
+                        <ul id="learningObjectives"></ul>
+                    </div>
+                    <div class="lesson-quiz">
+                        <h3>Quick Quiz:</h3>
+                        <div id="quizContent"></div>
+                        <button id="submitQuiz" class="quiz-button">Submit Answer</button>
+                        <div id="quizResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/learning.js') }}"></script>
+{% endblock %}
