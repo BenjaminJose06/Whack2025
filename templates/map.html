@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Map - FinQuest{% endblock %}
+{% block title %}Map - WHACK2025{% endblock %}
 
 {% block head %}
 <style>
@@ -14,8 +14,8 @@
     
     .zone {
         position: absolute;
-        width: 45%;
-        height: 80%;
+        width: 30%;
+        height: 70%;
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         cursor: pointer;
@@ -34,15 +34,21 @@
     }
     
     .learn-zone {
-        left: 2.5%;
-        top: 10%;
+        left: 2%;
+        top: 15%;
         background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     }
     
     .game-zone {
-        right: 2.5%;
-        top: 10%;
+        left: 35%;
+        top: 15%;
         background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+    }
+    
+    .api-zone {
+        right: 2%;
+        top: 15%;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     }
     
     .zone-title {
@@ -111,6 +117,14 @@
         <div class="zone-title">Game Zone</div>
         <div class="zone-description">
             Play fun mini-games while learning about money management
+        </div>
+    </a>
+    
+    <a href="{{ url_for('bank_api') }}" class="zone api-zone">
+        <div class="zone-icon">🏦</div>
+        <div class="zone-title">Bank API</div>
+        <div class="zone-description">
+            Access bank transactions using API integration
         </div>
     </a>
 </div>

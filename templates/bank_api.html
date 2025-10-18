@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}Bank API - WHACK2025{% endblock %}
+
+{% block head %}
+<style>
+    .bank-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        min-height: calc(100vh - 80px);
+    }
+
+    .bank-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: white;
+    }
+
+    .bank-header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .bank-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+
+    .back-button {
+        display: inline-block;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .back-button:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+        color: white;
+        text-decoration: none;
+    }
+
+    .api-content {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        margin-top: 2rem;
+    }
+
+    .api-section {
+        margin-bottom: 3rem;
+    }
+
+    .api-section h2 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #f093fb;
+        padding-bottom: 0.5rem;
+    }
+
+    .todo-box {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        border: 2px dashed #ff8a65;
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+
+    .todo-box h3 {
+        color: #d84315;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .todo-box p {
+        color: #bf360c;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .feature-card {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #f093fb;
+    }
+
+    .feature-card h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card ul {
+        color: #666;
+        padding-left: 1.5rem;
+    }
+
+    .feature-card li {
+        margin-bottom: 0.5rem;
+    }
+
+    .api-demo {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 10px;
+        font-family: 'Courier New', monospace;
+        margin: 1rem 0;
+        overflow-x: auto;
+    }
+
+    .api-demo pre {
+        margin: 0;
+        white-space: pre-wrap;
+    }
+
+    .endpoint {
+        color: #34d399;
+        font-weight: bold;
+    }
+
+    .method {
+        color: #fbbf24;
+        font-weight: bold;
+    }
+
+    .connect-section {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        color: white;
+    }
+
+    .connect-button {
+        background: rgba(255,255,255,0.2);
+        color: white;
+        padding: 1rem 2rem;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0.5rem;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .connect-button:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .bank-header h1 {
+            font-size: 2rem;
+        }
+        
+        .api-content {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        
+        .feature-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bank-container">
+    <div class="bank-header">
+        <h1>🏦 Bank API Integration</h1>
+        <p>Access and analyze your bank transactions using secure API connections</p>
+        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+    </div>
+
+    <div class="api-content">
+        <div class="api-section">
+            <h2>API Integration Overview</h2>
+            <p>This section provides secure access to bank transaction data through various banking APIs. Users can connect their accounts and analyze spending patterns, categorize transactions, and gain insights into their financial habits.</p>
+            
+            <div class="todo-box">
+                <h3>🚧 TODO: Developer Implementation Required</h3>
+                <p><strong>What needs to be implemented:</strong></p>
+                <p>• Bank API authentication and connection setup</p>
+                <p>• Transaction fetching and display interface</p>
+                <p>• Data visualization for spending analysis</p>
+                <p>• Category-based transaction filtering</p>
+                <p>• Export functionality for transaction data</p>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Planned Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔐 Secure Authentication</h3>
+                    <ul>
+                        <li>OAuth 2.0 bank connections</li>
+                        <li>Encrypted credential storage</li>
+                        <li>Multi-bank support</li>
+                        <li>Session management</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📊 Transaction Analysis</h3>
+                    <ul>
+                        <li>Real-time transaction fetching</li>
+                        <li>Automatic categorization</li>
+                        <li>Spending pattern analysis</li>
+                        <li>Monthly/yearly summaries</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📈 Data Visualization</h3>
+                    <ul>
+                        <li>Interactive charts and graphs</li>
+                        <li>Category breakdown pie charts</li>
+                        <li>Spending timeline visualization</li>
+                        <li>Budget vs actual comparisons</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>💾 Export & Reports</h3>
+                    <ul>
+                        <li>CSV/Excel export functionality</li>
+                        <li>PDF financial reports</li>
+                        <li>Custom date range filtering</li>
+                        <li>Scheduled report generation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Example API Structure</h2>
+            <p>Here's an example of how the API endpoints might be structured:</p>
+            
+            <div class="api-demo">
+<pre><span class="method">GET</span> <span class="endpoint">/api/banks/connect</span>
+# Initiate bank connection flow
+
+<span class="method">GET</span> <span class="endpoint">/api/transactions</span>
+# Fetch user's transactions
+Parameters:
+- start_date: YYYY-MM-DD
+- end_date: YYYY-MM-DD  
+- category: string (optional)
+- limit: integer (default: 100)
+
+<span class="method">POST</span> <span class="endpoint">/api/transactions/categorize</span>
+# Categorize transactions automatically
+Body: { "transaction_ids": [...] }
+
+<span class="method">GET</span> <span class="endpoint">/api/analytics/spending</span>
+# Get spending analytics and insights</pre>
+            </div>
+        </div>
+
+        <div class="connect-section">
+            <h2>🔗 Connect Your Bank Account</h2>
+            <p>Start by connecting your bank account to access transaction data</p>
+            
+            <div class="todo-box">
+                <h3>🛠️ Implementation Needed</h3>
+                <p>Bank connection buttons and authentication flow to be implemented here</p>
+            </div>
+            
+            <button class="connect-button" onclick="showTodoAlert()">Connect Chase Bank</button>
+            <button class="connect-button" onclick="showTodoAlert()">Connect Wells Fargo</button>
+            <button class="connect-button" onclick="showTodoAlert()">Connect Bank of America</button>
+            <button class="connect-button" onclick="showTodoAlert()">Connect Other Banks</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    function showTodoAlert() {
+        alert('TODO: Bank connection functionality needs to be implemented!\n\nThis should:\n1. Redirect to bank OAuth flow\n2. Handle authentication callbacks\n3. Store secure access tokens\n4. Fetch and display transaction data');
+    }
+
+    // TODO: Implement the following JavaScript functions:
+    
+    // 1. Bank connection and OAuth flow
+    // function initiateBankConnection(bankName) {
+    //     // Redirect to bank's OAuth authorization URL
+    // }
+    
+    // 2. Transaction fetching and display
+    // function fetchTransactions(filters = {}) {
+    //     // Fetch transactions from API with given filters
+    // }
+    
+    // 3. Transaction categorization
+    // function categorizeTransaction(transactionId, category) {
+    //     // Update transaction category via API
+    // }
+    
+    // 4. Data visualization setup
+    // function initializeCharts(transactionData) {
+    //     // Create charts using Chart.js or similar library
+    // }
+    
+    // 5. Export functionality  
+    // function exportTransactions(format, dateRange) {
+    //     // Generate and download transaction reports
+    // }
+
+    console.log('Bank API page loaded - Ready for implementation!');
+    console.log('TODO items:');
+    console.log('- Implement bank OAuth connections');
+    console.log('- Add transaction fetching and display');
+    console.log('- Create data visualization charts');
+    console.log('- Add export/report generation');
+</script>
+{% endblock %}

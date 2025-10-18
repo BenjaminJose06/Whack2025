@@ -214,6 +214,14 @@ def user_stats():
         'progress_percentage': user.xp_progress_percentage()
     })
 
+@app.route('/bank-api')
+def bank_api():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user = User.query.get(session['user_id'])
+    return render_template('bank_api.html', user=user)
+
 if __name__ == '__main__':
     # Ensure database directory exists and create tables
     with app.app_context():
