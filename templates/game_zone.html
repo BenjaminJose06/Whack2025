@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Game Zone - FinQuest{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <div class="game-header">
+        <h1>🎮 Game Zone</h1>
+        <p>Learn financial skills through fun and engaging games</p>
+        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+    </div>
+    
+    <div class="games-grid">
+        <div class="game-card" data-game="budget-balance">
+            <div class="game-icon">⚖️</div>
+            <h3>Budget Balance</h3>
+            <p>Balance your income and expenses to achieve financial goals</p>
+            <div class="game-stats">
+                <span class="high-score">High Score: <span id="budget-high-score">0</span></span>
+            </div>
+            <button class="play-button">Play Now</button>
+        </div>
+        
+        <div class="game-card" data-game="investment-clicker">
+            <div class="game-icon">💎</div>
+            <h3>Investment Clicker</h3>
+            <p>Make smart investment choices to grow your virtual portfolio</p>
+            <div class="game-stats">
+                <span class="high-score">High Score: <span id="investment-high-score">0</span></span>
+            </div>
+            <button class="play-button">Play Now</button>
+        </div>
+        
+        <div class="game-card" data-game="expense-catcher">
+            <div class="game-icon">🎯</div>
+            <h3>Expense Catcher</h3>
+            <p>Catch falling expenses and categorize them correctly</p>
+            <div class="game-stats">
+                <span class="high-score">High Score: <span id="catcher-high-score">0</span></span>
+            </div>
+            <button class="play-button">Play Now</button>
+        </div>
+    </div>
+    
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="gameTitle">Game Title</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="game-canvas-container">
+                    <canvas id="gameCanvas" width="800" height="600"></canvas>
+                    <div class="game-ui">
+                        <div class="game-score">Score: <span id="currentScore">0</span></div>
+                        <div class="game-time">Time: <span id="gameTime">60</span>s</div>
+                        <div class="game-lives">Lives: <span id="gameLives">3</span></div>
+                    </div>
+                    <div class="game-controls">
+                        <button id="startGame" class="game-control-btn">Start Game</button>
+                        <button id="pauseGame" class="game-control-btn">Pause</button>
+                        <button id="restartGame" class="game-control-btn">Restart</button>
+                    </div>
+                </div>
+                <div class="game-instructions" id="gameInstructions">
+                    <h3>How to Play:</h3>
+                    <div id="instructionContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/games.js') }}"></script>
+{% endblock %}
