@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}Game1 - WHACK2025{% endblock %}
+
+{% block head %}
+<style>
+    .game-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+    }
+    
+    .game-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .game-header h1 {
+        font-size: 3rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+    
+    .game-header p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+    
+    .back-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+    }
+    
+    .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .game-canvas-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    #gameCanvas {
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: #f8fafc;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .game-ui {
+        display: flex;
+        gap: 2rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .game-controls {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .game-control-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .game-control-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(102, 126, 234, 0.3);
+    }
+    
+    .game-control-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .game-instructions {
+        background: #f8fafc;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        text-align: center;
+    }
+    
+    .game-instructions h3 {
+        color: #333;
+        margin-bottom: 1rem;
+    }
+    
+    .todo-message {
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        margin: 2rem 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <div class="game-header">
+        <a href="{{ url_for('game_zone') }}" class="back-button">← Back to Games</a>
+        <h1>🎮 Game1</h1>
+        <p>TODO: Add Game1 description here</p>
+    </div>
+    
+    <div class="todo-message">
+        🚧 This game is ready for development! 🚧<br>
+        Team Member 1: You can start implementing Game1 here!
+    </div>
+    
+    <div class="game-canvas-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <div class="game-ui">
+            <div class="game-score">Score: <span id="currentScore">0</span></div>
+            <div class="game-time">Time: <span id="gameTime">60</span>s</div>
+            <div class="game-lives">Lives: <span id="gameLives">3</span></div>
+        </div>
+        
+        <div class="game-controls">
+            <button id="startGame" class="game-control-btn">Start Game</button>
+            <button id="pauseGame" class="game-control-btn" disabled>Pause</button>
+            <button id="restartGame" class="game-control-btn">Restart</button>
+        </div>
+    </div>
+    
+    <div class="game-instructions">
+        <h3>How to Play:</h3>
+        <p>TODO: Add game instructions here</p>
+        <p><strong>Controls:</strong> TODO: Add control instructions</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // TODO: Implement Game1 logic here
+    // Team Member 1: This is your workspace!
+    
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Game state
+    let gameState = 'stopped'; // stopped, running, paused
+    let score = 0;
+    let timeLeft = 60;
+    let lives = 3;
+    
+    // UI elements
+    const startBtn = document.getElementById('startGame');
+    const pauseBtn = document.getElementById('pauseGame');
+    const restartBtn = document.getElementById('restartGame');
+    const scoreElement = document.getElementById('currentScore');
+    const timeElement = document.getElementById('gameTime');
+    const livesElement = document.getElementById('gameLives');
+    
+    // Event listeners
+    startBtn.addEventListener('click', startGame);
+    pauseBtn.addEventListener('click', pauseGame);
+    restartBtn.addEventListener('click', restartGame);
+    
+    function startGame() {
+        // TODO: Implement start game logic
+        gameState = 'running';
+        startBtn.disabled = true;
+        pauseBtn.disabled = false;
+        
+        // Example: Draw placeholder
+        drawPlaceholder();
+        
+        alert('TODO: Implement Game1 start logic');
+    }
+    
+    function pauseGame() {
+        // TODO: Implement pause game logic
+        gameState = 'paused';
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+        alert('TODO: Implement Game1 pause logic');
+    }
+    
+    function restartGame() {
+        // TODO: Implement restart game logic
+        gameState = 'stopped';
+        score = 0;
+        timeLeft = 60;
+        lives = 3;
+        updateUI();
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+        
+        drawPlaceholder();
+        alert('TODO: Implement Game1 restart logic');
+    }
+    
+    function updateUI() {
+        scoreElement.textContent = score;
+        timeElement.textContent = timeLeft;
+        livesElement.textContent = lives;
+    }
+    
+    function drawPlaceholder() {
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#333';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Game1 - Ready for Development!', canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText('TODO: Implement game graphics here', canvas.width/2, canvas.height/2 + 20);
+    }
+    
+    // Initialize
+    drawPlaceholder();
+    updateUI();
+    
+    // TODO: Add your game-specific functions below
+    // - Game loop
+    // - Player input handling
+    // - Collision detection
+    // - Score calculation
+    // - Win/lose conditions
+    
+    console.log('Game1 JavaScript loaded - Ready for Team Member 1!');
+</script>
+{% endblock %}
