@@ -1,6 +1,10 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+<<<<<<<<< Temporary merge branch 1
+*.py[codz]
+=========
 *.py[cod]
+>>>>>>>>> Temporary merge branch 2
 *$py.class
 
 # C extensions
@@ -20,7 +24,10 @@ parts/
 sdist/
 var/
 wheels/
+<<<<<<<<< Temporary merge branch 1
+=========
 pip-wheel-metadata/
+>>>>>>>>> Temporary merge branch 2
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -28,8 +35,11 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
+<<<<<<<<< Temporary merge branch 1
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
+=========
+>>>>>>>>> Temporary merge branch 2
 *.manifest
 *.spec
 
@@ -47,11 +57,16 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
+<<<<<<<<< Temporary merge branch 1
 *.py.cover
 .hypothesis/
 .pytest_cache/
 cover/
+=========
+*.py,cover
+.hypothesis/
+.pytest_cache/
+>>>>>>>>> Temporary merge branch 2
 
 # Translations
 *.mo
@@ -74,7 +89,10 @@ instance/
 docs/_build/
 
 # PyBuilder
+<<<<<<<<< Temporary merge branch 1
 .pybuilder/
+=========
+>>>>>>>>> Temporary merge branch 2
 target/
 
 # Jupyter Notebook
@@ -85,6 +103,7 @@ profile_default/
 ipython_config.py
 
 # pyenv
+<<<<<<<<< Temporary merge branch 1
 #   For a library or package, you might want to ignore these files since the code is
 #   intended to run in multiple environments; otherwise, check them in:
 # .python-version
@@ -127,6 +146,14 @@ ipython_config.py
 .pixi
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+=========
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+>>>>>>>>> Temporary merge branch 2
 __pypackages__/
 
 # Celery stuff
@@ -138,7 +165,10 @@ celerybeat.pid
 
 # Environments
 .env
+<<<<<<<<< Temporary merge branch 1
 .envrc
+=========
+>>>>>>>>> Temporary merge branch 2
 .venv
 env/
 venv/
@@ -164,6 +194,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+<<<<<<<<< Temporary merge branch 1
 # pytype static type analyzer
 .pytype/
 
@@ -207,7 +238,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
+=========
 # Database
 *.db
 *.sqlite
@@ -223,3 +254,4 @@ __marimo__/
 # OS
 .DS_Store
 Thumbs.db
+>>>>>>>>> Temporary merge branch 2

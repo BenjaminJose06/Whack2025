@@ -28,28 +28,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Game definitions
     const games = {
         'budget-balance': {
-            title: 'Budget Balance',
-            instructions: 'Click on income items (green) to collect them and avoid expense items (red). Balance your budget to win!',
-            init: initBudgetBalance,
-            update: updateBudgetBalance,
-            render: renderBudgetBalance,
-            handleClick: handleBudgetBalanceClick
+            title: 'Game1',
+            instructions: 'TODO: Game1 instructions',
+            init: initGame1,
+            update: updateGame1,
+            render: renderGame1,
+            handleClick: handleGame1Click
         },
         'investment-clicker': {
-            title: 'Investment Clicker',
-            instructions: 'Click on investment opportunities to grow your portfolio. Higher risk = higher reward, but be careful!',
-            init: initInvestmentClicker,
-            update: updateInvestmentClicker,
-            render: renderInvestmentClicker,
-            handleClick: handleInvestmentClickerClick
+            title: 'Game2',
+            instructions: 'TODO: Game2 instructions',
+            init: initGame2,
+            update: updateGame2,
+            render: renderGame2,
+            handleClick: handleGame2Click
         },
         'expense-catcher': {
-            title: 'Expense Catcher',
-            instructions: 'Use arrow keys to move and catch falling expenses. Sort them into the correct categories!',
-            init: initExpenseCatcher,
-            update: updateExpenseCatcher,
-            render: renderExpenseCatcher,
-            handleKeyboard: handleExpenseCatcherKeyboard
+            title: 'Game3',
+            instructions: 'TODO: Game3 instructions',
+            init: initGame3,
+            update: updateGame3,
+            render: renderGame3,
+            handleKeyboard: handleGame3Keyboard
         }
     };
     
@@ -311,343 +311,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Game 1: Budget Balance
-    let budgetItems = [];
-    
-    function initBudgetBalance() {
-        budgetItems = [];
+    // Game 1
+    function initGame1() {
         ctx.fillStyle = '#f8fafc';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         ctx.fillStyle = '#333';
         ctx.font = '24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Click Start to begin Budget Balance!', canvas.width/2, canvas.height/2);
+        ctx.fillText('Game1', canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText('TODO: Implement game logic', canvas.width/2, canvas.height/2 + 20);
     }
     
-    function updateBudgetBalance() {
-        // Spawn new items
-        if (Math.random() < 0.03) {
-            budgetItems.push({
-                x: Math.random() * (canvas.width - 60),
-                y: -30,
-                type: Math.random() < 0.6 ? 'income' : 'expense',
-                value: Math.floor(Math.random() * 50) + 10,
-                speed: Math.random() * 2 + 1
-            });
-        }
-        
-        // Update item positions
-        budgetItems.forEach(item => {
-            item.y += item.speed;
-        });
-        
-        // Remove items that are off screen
-        budgetItems = budgetItems.filter(item => {
-            if (item.y > canvas.height + 30) {
-                if (item.type === 'income') {
-                    lives--; // Lost income = lose life
-                    updateUI();
-                    if (lives <= 0) {
-                        endGame();
-                    }
-                }
-                return false;
-            }
-            return true;
-        });
+    function updateGame1() {
+        // TODO: Implement Game1 update logic
     }
     
-    function renderBudgetBalance() {
-        // Clear canvas
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw items
-        budgetItems.forEach(item => {
-            ctx.fillStyle = item.type === 'income' ? '#10b981' : '#ef4444';
-            ctx.fillRect(item.x, item.y, 60, 30);
-            
-            ctx.fillStyle = 'white';
-            ctx.font = '14px Arial';
-            ctx.textAlign = 'center';
-            const symbol = item.type === 'income' ? '+' : '-';
-            ctx.fillText(`${symbol}$${item.value}`, item.x + 30, item.y + 20);
-        });
-        
-        // Draw instructions
-        ctx.fillStyle = '#333';
-        ctx.font = '16px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText('Green = Income (click to collect)', 10, 30);
-        ctx.fillText('Red = Expenses (avoid clicking)', 10, 50);
+    function renderGame1() {
+        // TODO: Implement Game1 rendering
     }
     
-    function handleBudgetBalanceClick(x, y) {
-        for (let i = budgetItems.length - 1; i >= 0; i--) {
-            const item = budgetItems[i];
-            if (x >= item.x && x <= item.x + 60 && y >= item.y && y <= item.y + 30) {
-                if (item.type === 'income') {
-                    score += item.value;
-                } else {
-                    score = Math.max(0, score - item.value);
-                    lives--;
-                    if (lives <= 0) {
-                        endGame();
-                    }
-                }
-                budgetItems.splice(i, 1);
-                updateUI();
-                break;
-            }
-        }
+    function handleGame1Click(x, y) {
+        // TODO: Implement Game1 click handling
+        console.log('TODO: Game1 click at', x, y);
     }
     
-    // Game 2: Investment Clicker
-    let investments = [];
-    
-    function initInvestmentClicker() {
-        investments = [];
+    // Game 2
+    function initGame2() {
         ctx.fillStyle = '#f8fafc';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         ctx.fillStyle = '#333';
         ctx.font = '24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Click Start to begin Investment Clicker!', canvas.width/2, canvas.height/2);
+        ctx.fillText('Game2', canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText('TODO: Implement game logic', canvas.width/2, canvas.height/2 + 20);
     }
     
-    function updateInvestmentClicker() {
-        // Spawn new investments
-        if (Math.random() < 0.02) {
-            const risk = Math.random();
-            investments.push({
-                x: Math.random() * (canvas.width - 80),
-                y: Math.random() * (canvas.height - 60),
-                risk: risk,
-                reward: Math.floor(risk * 100) + 10,
-                size: 80,
-                lifetime: 180 + Math.random() * 120, // 3-5 seconds at 60fps
-                maxLifetime: 180 + Math.random() * 120
-            });
-        }
-        
-        // Update investments
-        investments.forEach(investment => {
-            investment.lifetime--;
-        });
-        
-        // Remove expired investments
-        investments = investments.filter(investment => investment.lifetime > 0);
+    function updateGame2() {
+        // TODO: Implement Game2 update logic
     }
     
-    function renderInvestmentClicker() {
-        // Clear canvas
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw investments
-        investments.forEach(investment => {
-            const alpha = investment.lifetime / investment.maxLifetime;
-            const riskColor = investment.risk > 0.7 ? '#ef4444' : 
-                             investment.risk > 0.4 ? '#f59e0b' : '#10b981';
-            
-            ctx.globalAlpha = alpha;
-            ctx.fillStyle = riskColor;
-            ctx.fillRect(investment.x, investment.y, investment.size, 40);
-            
-            ctx.fillStyle = 'white';
-            ctx.font = '14px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(`$${investment.reward}`, investment.x + investment.size/2, investment.y + 25);
-            
-            ctx.globalAlpha = 1;
-        });
-        
-        // Draw instructions
-        ctx.fillStyle = '#333';
-        ctx.font = '16px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText('Click investments before they disappear!', 10, 30);
-        ctx.fillText('Green = Low risk, Yellow = Medium, Red = High risk', 10, 50);
+    function renderGame2() {
+        // TODO: Implement Game2 rendering
     }
     
-    function handleInvestmentClickerClick(x, y) {
-        for (let i = investments.length - 1; i >= 0; i--) {
-            const investment = investments[i];
-            if (x >= investment.x && x <= investment.x + investment.size && 
-                y >= investment.y && y <= investment.y + 40) {
-                
-                if (Math.random() < (1 - investment.risk * 0.5)) {
-                    // Successful investment
-                    score += investment.reward;
-                } else {
-                    // Failed investment
-                    score = Math.max(0, score - Math.floor(investment.reward / 2));
-                    lives--;
-                    if (lives <= 0) {
-                        endGame();
-                    }
-                }
-                investments.splice(i, 1);
-                updateUI();
-                break;
-            }
-        }
+    function handleGame2Click(x, y) {
+        // TODO: Implement Game2 click handling
+        console.log('TODO: Game2 click at', x, y);
     }
     
-    // Game 3: Expense Catcher
-    let player = { x: 375, y: 550, width: 50, height: 30, speed: 5 };
-    let fallingExpenses = [];
-    let categories = ['Food', 'Transport', 'Entertainment', 'Bills'];
-    let baskets = [];
-    
-    function initExpenseCatcher() {
-        player = { x: 375, y: 550, width: 50, height: 30, speed: 5 };
-        fallingExpenses = [];
-        baskets = [];
-        
-        // Create category baskets
-        for (let i = 0; i < categories.length; i++) {
-            baskets.push({
-                x: i * 200 + 50,
-                y: canvas.height - 80,
-                width: 150,
-                height: 50,
-                category: categories[i],
-                color: `hsl(${i * 90}, 70%, 60%)`
-            });
-        }
-        
+    // Game 3
+    function initGame3() {
         ctx.fillStyle = '#f8fafc';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         ctx.fillStyle = '#333';
         ctx.font = '24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Click Start to begin Expense Catcher!', canvas.width/2, canvas.height/2);
-        ctx.font = '16px Arial';
-        ctx.fillText('Use arrow keys to move!', canvas.width/2, canvas.height/2 + 40);
+        ctx.fillText('Game3', canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText('TODO: Implement game logic', canvas.width/2, canvas.height/2 + 20);
     }
     
-    function updateExpenseCatcher() {
-        // Spawn falling expenses
-        if (Math.random() < 0.02) {
-            fallingExpenses.push({
-                x: Math.random() * (canvas.width - 40),
-                y: -30,
-                width: 40,
-                height: 20,
-                speed: Math.random() * 2 + 2,
-                category: categories[Math.floor(Math.random() * categories.length)],
-                value: Math.floor(Math.random() * 30) + 10
-            });
-        }
-        
-        // Update falling expenses
-        fallingExpenses.forEach(expense => {
-            expense.y += expense.speed;
-        });
-        
-        // Check for player catching expenses
-        for (let i = fallingExpenses.length - 1; i >= 0; i--) {
-            const expense = fallingExpenses[i];
-            if (expense.x < player.x + player.width &&
-                expense.x + expense.width > player.x &&
-                expense.y < player.y + player.height &&
-                expense.y + expense.height > player.y) {
-                
-                // Player caught the expense, now check if dropped in correct basket
-                expense.caught = true;
-                expense.x = player.x + player.width / 2 - expense.width / 2;
-                expense.y = player.y - expense.height;
-            }
-        }
-        
-        // Remove expenses that fell off screen
-        fallingExpenses = fallingExpenses.filter(expense => {
-            if (expense.y > canvas.height + 30 && !expense.caught) {
-                lives--; // Missed expense
-                updateUI();
-                if (lives <= 0) {
-                    endGame();
-                }
-                return false;
-            }
-            return true;
-        });
+    function updateGame3() {
+        // TODO: Implement Game3 update logic
     }
     
-    function renderExpenseCatcher() {
-        // Clear canvas
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw category baskets
-        baskets.forEach(basket => {
-            ctx.fillStyle = basket.color;
-            ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
-            
-            ctx.fillStyle = 'white';
-            ctx.font = '16px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(basket.category, basket.x + basket.width/2, basket.y + 30);
-        });
-        
-        // Draw player
-        ctx.fillStyle = '#667eea';
-        ctx.fillRect(player.x, player.y, player.width, player.height);
-        
-        // Draw falling expenses
-        fallingExpenses.forEach(expense => {
-            ctx.fillStyle = expense.caught ? '#fbbf24' : '#ef4444';
-            ctx.fillRect(expense.x, expense.y, expense.width, expense.height);
-            
-            ctx.fillStyle = 'white';
-            ctx.font = '10px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(`$${expense.value}`, expense.x + expense.width/2, expense.y + 15);
-        });
-        
-        // Draw instructions
-        ctx.fillStyle = '#333';
-        ctx.font = '14px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText('Catch expenses and drop them in correct baskets!', 10, 20);
+    function renderGame3() {
+        // TODO: Implement Game3 rendering
     }
     
-    function handleExpenseCatcherKeyboard(e) {
-        switch(e.key) {
-            case 'ArrowLeft':
-                player.x = Math.max(0, player.x - player.speed);
-                break;
-            case 'ArrowRight':
-                player.x = Math.min(canvas.width - player.width, player.x + player.speed);
-                break;
-            case 'ArrowDown':
-                // Drop caught expenses
-                for (let i = fallingExpenses.length - 1; i >= 0; i--) {
-                    const expense = fallingExpenses[i];
-                    if (expense.caught) {
-                        // Check which basket it's dropped into
-                        for (let basket of baskets) {
-                            if (expense.x + expense.width/2 >= basket.x && 
-                                expense.x + expense.width/2 <= basket.x + basket.width) {
-                                
-                                if (basket.category === expense.category) {
-                                    score += expense.value;
-                                } else {
-                                    score = Math.max(0, score - Math.floor(expense.value / 2));
-                                }
-                                break;
-                            }
-                        }
-                        fallingExpenses.splice(i, 1);
-                        updateUI();
-                    }
-                }
-                break;
-        }
+    function handleGame3Keyboard(e) {
+        // TODO: Implement Game3 keyboard handling
+        console.log('TODO: Game3 keyboard input', e.key);
     }
     
     // Load high scores on page load

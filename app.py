@@ -144,6 +144,30 @@ def game_zone():
     user = User.query.get(session['user_id'])
     return render_template('game_zone.html', user=user)
 
+@app.route('/game1')
+def game1():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user = User.query.get(session['user_id'])
+    return render_template('game1.html', user=user)
+
+@app.route('/game2')
+def game2():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user = User.query.get(session['user_id'])
+    return render_template('game2.html', user=user)
+
+@app.route('/game3')
+def game3():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user = User.query.get(session['user_id'])
+    return render_template('game3.html', user=user)
+
 @app.route('/api/add_xp', methods=['POST'])
 def add_xp():
     if 'user_id' not in session:
