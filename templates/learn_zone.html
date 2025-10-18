@@ -5,16 +5,20 @@
 {% block content %}
 <div class="learning-container">
     <div class="learning-header">
-        <h1>📚 Learning Zone</h1>
-        <p>Expand your financial knowledge through interactive lessons</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+        <h1>Learning Zone</h1>
+        <p>Expand your financial knowledge through structured content</p>
+        <a href="{{ url_for('map_view') }}" class="back-button">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
     </div>
     
     <div class="lessons-grid">
         <div class="lesson-card" data-lesson="budgeting">
-            <div class="lesson-icon">💰</div>
+            <div class="lesson-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
             <h3>Budgeting Basics</h3>
-            <p>Learn how to create and manage a personal budget</p>
+            <p>Learn how to create and maintain an effective personal budget</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -24,9 +28,11 @@
         </div>
         
         <div class="lesson-card" data-lesson="saving">
-            <div class="lesson-icon">🏦</div>
+            <div class="lesson-icon">
+                <i class="fa-solid fa-piggy-bank"></i>
+            </div>
             <h3>Smart Saving</h3>
-            <p>Discover effective strategies for building your savings</p>
+            <p>Discover proven strategies for building and growing your savings</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -36,9 +42,11 @@
         </div>
         
         <div class="lesson-card" data-lesson="investing">
-            <div class="lesson-icon">📈</div>
+            <div class="lesson-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
             <h3>Investment Fundamentals</h3>
-            <p>Understand the basics of investing and growing wealth</p>
+            <p>Master the principles of investing and wealth accumulation</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -48,9 +56,11 @@
         </div>
         
         <div class="lesson-card" data-lesson="debt">
-            <div class="lesson-icon">🏗️</div>
+            <div class="lesson-icon">
+                <i class="fa-solid fa-scale-balanced"></i>
+            </div>
             <h3>Debt Management</h3>
-            <p>Learn strategies to manage and eliminate debt effectively</p>
+            <p>Learn effective strategies to manage and eliminate debt</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
