@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Learning Zone - FinQuest{% endblock %}
+{% block title %}Learning Zone - WHACK2025{% endblock %}
 
 {% block content %}
 <div class="learning-container">
@@ -11,10 +11,10 @@
     </div>
     
     <div class="lessons-grid">
-        <div class="lesson-card" data-lesson="budgeting">
-            <div class="lesson-icon">💰</div>
-            <h3>Budgeting Basics</h3>
-            <p>Learn how to create and manage a personal budget</p>
+        <div class="lesson-card" data-lesson="quiz">
+            <div class="lesson-icon">�</div>
+            <h3>Quiz</h3>
+            <p>Test your knowledge with quick questions</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -23,10 +23,10 @@
             </div>
         </div>
         
-        <div class="lesson-card" data-lesson="saving">
-            <div class="lesson-icon">🏦</div>
-            <h3>Smart Saving</h3>
-            <p>Discover effective strategies for building your savings</p>
+        <div class="lesson-card" data-lesson="reading">
+            <div class="lesson-icon">📚</div>
+            <h3>Reading</h3>
+            <p>Read bite-sized guides and tips</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -35,10 +35,10 @@
             </div>
         </div>
         
-        <div class="lesson-card" data-lesson="investing">
-            <div class="lesson-icon">📈</div>
-            <h3>Investment Fundamentals</h3>
-            <p>Understand the basics of investing and growing wealth</p>
+        <div class="lesson-card" data-lesson="simulation">
+            <div class="lesson-icon">🧪</div>
+            <h3>Simulation</h3>
+            <p>Practice decisions in realistic scenarios</p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
@@ -47,17 +47,18 @@
             </div>
         </div>
         
-        <div class="lesson-card" data-lesson="debt">
-            <div class="lesson-icon">🏗️</div>
-            <h3>Debt Management</h3>
-            <p>Learn strategies to manage and eliminate debt effectively</p>
+        <!-- Advisor placeholder: links to dedicated page (empty for now) -->
+        <a href="{{ url_for('advisor') }}" class="lesson-card" style="text-decoration: none; color: inherit;">
+            <div class="lesson-icon">🧭</div>
+            <h3>Advisor</h3>
+            <p><!-- Intentionally left empty for future API-driven content --></p>
             <div class="lesson-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%"></div>
                 </div>
                 <span class="progress-text">0% Complete</span>
             </div>
-        </div>
+        </a>
     </div>
     
     <div class="lesson-modal" id="lessonModal">

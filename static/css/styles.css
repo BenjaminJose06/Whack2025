@@ -14,7 +14,7 @@ body {
 
 /* Navigation Bar */
 .navbar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #4a5568;
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -27,9 +27,23 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     padding: 0 2rem;
+}
+
+.nav-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.nav-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-brand h1 {
@@ -41,6 +55,7 @@ body {
 .nav-user {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -73,19 +88,26 @@ body {
     gap: 0.25rem;
 }
 
+.user-username {
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+}
+
 .user-email {
-    font-size: 0.9rem;
-    opacity: 0.9;
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 .xp-bar {
     position: relative;
-    width: 150px;
-    height: 20px;
+    width: 90%;
+    height: 25px;
     background: rgba(255,255,255,0.2);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.3);
+    max-width: 1000px;
 }
 
 .xp-progress {
@@ -100,7 +122,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     color: white;
@@ -658,6 +680,71 @@ body {
     background: #fef2f2;
     color: #dc2626;
     border: 1px solid #fecaca;
+}
+
+/* Advisor Chat Styles */
+.advisor-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.advisor-row {
+    display: flex;
+}
+
+.advisor-row.user {
+    justify-content: flex-end;
+}
+
+.advisor-row.ai {
+    justify-content: flex-start;
+}
+
+.advisor-bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.advisor-row.user .advisor-bubble {
+    background: #667eea;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.advisor-row.ai .advisor-bubble {
+    background: #f3f4f6;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+/* Advisor loading bar */
+.advisor-loading {
+    position: relative;
+    height: 4px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.advisor-loading::before {
+    content: '';
+    position: absolute;
+    left: -30%;
+    top: 0;
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: inherit;
+    animation: advisorLoading 1s linear infinite;
+}
+
+@keyframes advisorLoading {
+    0% { left: -30%; }
+    100% { left: 100%; }
 }
 
 /* Responsive Design */

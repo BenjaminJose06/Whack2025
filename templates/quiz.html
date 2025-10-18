@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz - WHACK2025{% endblock %}
+
+{% block content %}
+<div class="learning-container">
+  <div class="learning-header">
+    <h1>🧠 Quiz</h1>
+    <p>Answer a short set of multiple-choice questions. Earn XP for correct answers.</p>
+    <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+  </div>
+
+  <div id="quiz-root" style="max-width: 900px; margin: 0 auto;"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

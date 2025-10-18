@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Advisor - WHACK2025{% endblock %}
+
+{% block content %}
+<div class="learning-container">
+    <div class="learning-header">
+        <h1>🧭 Advisor</h1>
+        <p>Ask for financial advice tailored for university students.</p>
+        <a href="{{ url_for('learn_zone') }}" class="back-button">← Back to Learning Zone</a>
+    </div>
+
+    <div class="advisor-panel" style="max-width: 900px; margin: 0 auto;">
+        <div id="advisor-loading" class="advisor-loading" style="display:none;"></div>
+        <div id="advisor-chat" class="advisor-chat" style="background: #fff; border-radius: 12px; padding: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); min-height: 300px; max-height: 60vh; overflow-y: auto;"></div>
+        <form id="advisor-form" class="advisor-form" style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <input id="advisor-input" type="text" placeholder="Ask the advisor..." style="flex:1; padding: 0.75rem 1rem; border-radius: 10px; border: 2px solid #e5e7eb;" required />
+            <button id="advisor-send" class="play-button" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/advisor.js') }}"></script>
+{% endblock %}

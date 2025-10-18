@@ -11,23 +11,28 @@
     {% if session.user_id %}
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <h1>WHACK2025</h1>
+            <div class="nav-top">
+                <div class="nav-brand">
+                    <h1>WHACK2025</h1>
+                </div>
+                <div class="nav-user">
+                    <div class="user-avatar">
+                        <div class="avatar-circle">
+                            <span class="level-text">{{ user.level if user else 1 }}</span>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-username">{{ session.username if session.username else 'User' }}</div>
+                        <div class="user-email">{{ session.user_email }}</div>
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                </div>
             </div>
-            <div class="nav-user">
-                <div class="user-avatar">
-                    <div class="avatar-circle">
-                        <span class="level-text">{{ user.level if user else 1 }}</span>
-                    </div>
+            <div class="nav-bottom">
+                <div class="xp-bar">
+                    <div class="xp-progress" id="xp-progress" data-progress="{{ user.xp_progress_percentage() if user else 0 }}"></div>
+                    <span class="xp-text" id="xp-text">{{ user.xp if user else 0 }} XP</span>
                 </div>
-                <div class="user-info">
-                    <div class="user-email">{{ session.user_email }}</div>
-                    <div class="xp-bar">
-                        <div class="xp-progress" id="xp-progress" data-progress="{{ user.xp_progress_percentage() if user else 0 }}"></div>
-                        <span class="xp-text" id="xp-text">{{ user.xp if user else 0 }} XP</span>
-                    </div>
-                </div>
-                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
             </div>
         </div>
     </nav>

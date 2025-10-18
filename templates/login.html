@@ -7,17 +7,24 @@
     body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fc466b 100%);
+        background: linear-gradient(-45deg, #000000, #1a1a1a, #2d2d2d, #000000);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
         min-height: 100vh;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
     .login-wrapper {
         min-height: 100vh;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        justify-content: center;
-        padding: 2rem;
         position: relative;
         overflow: hidden;
     }
@@ -25,115 +32,262 @@
     .login-wrapper::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="0.3" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.4" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        opacity: 0.3;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
+        animation: backgroundMove 20s linear infinite;
         pointer-events: none;
     }
     
-    .login-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
-        padding: 4rem 3rem;
-        width: 100%;
-        max-width: 480px;
+    @keyframes backgroundMove {
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-20px) rotate(1deg); }
+    }
+    
+    .login-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        color: white;
         text-align: center;
         position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 2;
+        animation: slideInLeft 1s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    .login-right {
+        background: white;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        animation: slideInRight 1s ease-out;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    .login-container {
+        width: 100%;
+        max-width: 500px;
+        padding: 3rem;
+        animation: fadeInUp 1.2s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .brand-section {
+        margin-bottom: 4rem;
+    }
+    
+    .brand-logo {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        letter-spacing: -2px;
+        animation: textGlow 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes textGlow {
+        from {
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+    }
+    
+    .brand-tagline {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    .money-image {
+        margin: 2rem 0;
+        text-align: center;
+    }
+    
+    .money-img {
+        max-width: 300px;
+        width: 80%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        transition: all 0.4s ease;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-10px) rotate(1deg);
+        }
+    }
+    
+    .money-img:hover {
+        transform: scale(1.08) translateY(-5px);
+        box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+    }
+    
+    .features-list {
+        text-align: left;
+        max-width: 350px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+        animation: slideInFeature 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    
+    .feature-item:nth-child(1) { animation-delay: 0.2s; }
+    .feature-item:nth-child(2) { animation-delay: 0.4s; }
+    .feature-item:nth-child(3) { animation-delay: 0.6s; }
+    .feature-item:nth-child(4) { animation-delay: 0.8s; }
+    
+    @keyframes slideInFeature {
+        to {
+            opacity: 0.9;
+            transform: translateX(0);
+        }
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+    }
+    
+    .feature-item:hover {
+        opacity: 1;
+        transform: translateX(5px);
+    }
+    
+    .feature-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
     }
     
     .login-header {
-        margin-bottom: 3rem;
-    }
-    
-    .login-logo {
-        font-size: 3.5rem;
-        font-weight: 900;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fc466b 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 1rem;
-        letter-spacing: -1px;
+        text-align: center;
+        margin-bottom: 2.5rem;
     }
     
     .login-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        color: #2d3748;
+        color: #1f2937;
         margin-bottom: 0.5rem;
     }
     
     .login-subtitle {
-        font-size: 1.125rem;
-        color: #718096;
+        font-size: 1.2rem;
+        color: #6b7280;
         margin-bottom: 0;
-        font-weight: 400;
     }
     
     .login-form {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        margin-bottom: 2.5rem;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
     }
     
     .form-field {
-        position: relative;
         text-align: left;
     }
     
     .form-field label {
         display: block;
-        font-size: 0.875rem;
+        font-size: 1rem;
         font-weight: 600;
-        color: #4a5568;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        color: #374151;
+        margin-bottom: 0.75rem;
     }
     
     .form-field input {
         width: 100%;
-        padding: 1rem 1.25rem;
-        font-size: 1rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        font-size: 1.1rem;
+        border: 2px solid #d1d5db;
+        border-radius: 10px;
         background: #ffffff;
-        color: #2d3748;
-        transition: all 0.3s ease;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        color: #1f2937;
+        transition: all 0.4s ease;
+        box-sizing: border-box;
+        position: relative;
     }
     
     .form-field input:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        transform: translateY(-1px);
+        border-color: #000000;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
     }
     
     .form-field input::placeholder {
-        color: #a0aec0;
+        color: #9ca3af;
     }
     
     .login-button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #000000;
         color: white;
-        padding: 1.25rem 2rem;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.125rem;
+        padding: 1.5rem 2rem;
+        border: 2px solid #000000;
+        border-radius: 10px;
+        font-size: 1.2rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 14px 0 rgba(102, 126, 234, 0.3);
+        transition: all 0.4s ease;
+        width: 100%;
+        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.3);
         position: relative;
         overflow: hidden;
     }
@@ -146,16 +300,17 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
+        transition: left 0.6s;
+    }
+    
+    .login-button:hover {
+        transform: translateY(-3px);
+        background: #333333;
+        box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.4);
     }
     
     .login-button:hover::before {
         left: 100%;
-    }
-    
-    .login-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px 0 rgba(102, 126, 234, 0.4);
     }
     
     .login-button:active {
@@ -163,104 +318,79 @@
     }
     
     .login-button:disabled {
-        opacity: 0.7;
+        opacity: 0.6;
         cursor: not-allowed;
         transform: none;
     }
     
     .login-footer {
         text-align: center;
-        padding-top: 2rem;
-        border-top: 1px solid #e2e8f0;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 2rem;
     }
     
     .login-footer p {
-        color: #718096;
-        font-size: 1rem;
+        color: #6b7280;
+        font-size: 1.1rem;
         margin: 0;
     }
     
     .login-footer a {
-        color: #667eea;
+        color: #000000;
         text-decoration: none;
         font-weight: 600;
         transition: color 0.3s ease;
     }
     
     .login-footer a:hover {
-        color: #764ba2;
+        color: #333333;
         text-decoration: underline;
     }
     
-    .floating-elements {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-    }
-    
-    .floating-circle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        animation: float 8s ease-in-out infinite;
-    }
-    
-    .floating-circle:nth-child(1) {
-        width: 80px;
-        height: 80px;
-        top: 20%;
-        left: 10%;
-        animation-delay: 0s;
-    }
-    
-    .floating-circle:nth-child(2) {
-        width: 120px;
-        height: 120px;
-        top: 60%;
-        right: 10%;
-        animation-delay: 2s;
-    }
-    
-    .floating-circle:nth-child(3) {
-        width: 60px;
-        height: 60px;
-        bottom: 20%;
-        left: 20%;
-        animation-delay: 4s;
-    }
-    
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0.3;
-        }
-        50% {
-            transform: translateY(-20px) rotate(180deg);
-            opacity: 0.6;
-        }
-    }
-    
     @media (max-width: 768px) {
-        .login-container {
-            padding: 3rem 2rem;
-            margin: 1rem;
-            max-width: 400px;
+        .login-wrapper {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
         }
         
-        .login-logo {
+        .login-left {
+            padding: 2rem 1rem;
+            min-height: auto;
+        }
+        
+        .login-right {
+            min-height: auto;
+            padding: 1rem;
+        }
+        
+        .login-container {
+            padding: 2rem 1.5rem;
+        }
+        
+        .brand-logo {
             font-size: 2.5rem;
         }
         
         .login-title {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
         
-        .login-subtitle {
-            font-size: 1rem;
+        .brand-tagline {
+            font-size: 1.1rem;
+        }
+        
+        .features-list {
+            display: none;
+        }
+        
+        .money-image {
+            margin: 1rem 0;
+        }
+        
+        .money-img {
+            max-width: 200px;
+            width: 60%;
         }
     }
 </style>
@@ -268,37 +398,64 @@
 
 {% block content %}
 <div class="login-wrapper">
-    <div class="floating-elements">
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
-    </div>
-    
-    <div class="login-container">
-        <div class="login-header">
-            <div class="login-logo">WHACK2025</div>
-            <h1 class="login-title">Welcome Back!</h1>
-            <p class="login-subtitle">Sign in to continue your financial journey</p>
+    <div class="login-left">
+        <div class="brand-section">
+            <div class="brand-logo">WHACK2025</div>
+            <div class="brand-tagline">
+                Your gateway to financial literacy and smart money management
+            </div>
         </div>
         
-        <form method="POST" class="login-form" id="loginForm">
-            <div class="form-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            
-            <div class="form-field">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            
-            <button type="submit" class="login-button" id="loginButton">
-                Sign In
-            </button>
-        </form>
+        <div class="money-image">
+            <img src="{{ url_for('static', filename='images/money.jpg') }}" alt="Animated Money" class="money-img">
+        </div>
         
-        <div class="login-footer">
-            <p>Don't have an account? <a href="{{ url_for('register') }}">Create one here</a></p>
+        <div class="features-list">
+            <div class="feature-item">
+                <span class="feature-icon">•</span>
+                Interactive financial games
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">•</span>
+                Learn money management
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">•</span>
+                Bank API integration
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">•</span>
+                Track your progress
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-right">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="login-title">Welcome Back!</h1>
+                <p class="login-subtitle">Sign in to continue your financial journey</p>
+            </div>
+            
+            <form method="POST" class="login-form" id="loginForm">
+                <div class="form-field">
+                    <label for="email">Email or Username</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+                </div>
+                
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-button" id="loginButton">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Create one here</a></p>
+            </div>
         </div>
     </div>
 </div>
@@ -313,40 +470,62 @@
         
         button.textContent = 'Signing In...';
         button.disabled = true;
+        button.style.animation = 'pulse 1s infinite';
         
         // Re-enable button after 3 seconds if form doesn't submit
         setTimeout(() => {
             if (button.disabled) {
                 button.textContent = originalText;
                 button.disabled = false;
+                button.style.animation = '';
             }
         }, 3000);
     });
     
-    // Add input focus animations
-    document.querySelectorAll('.form-field input').forEach(input => {
+    // Enhanced focus animations
+    document.querySelectorAll('.form-field input').forEach((input, index) => {
         input.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'scale(1.02)';
+            this.parentElement.style.transform = 'translateY(-3px)';
+            this.parentElement.style.transition = 'all 0.3s ease';
         });
         
         input.addEventListener('blur', function() {
-            this.parentElement.style.transform = 'scale(1)';
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+        
+        // Staggered animation on page load
+        setTimeout(() => {
+            input.parentElement.style.opacity = '1';
+            input.parentElement.style.transform = 'translateY(0)';
+        }, 100 * index);
+    });
+    
+    // Add typing effect animation
+    document.querySelectorAll('.form-field input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.style.borderColor = '#333333';
+            setTimeout(() => {
+                this.style.borderColor = '#d1d5db';
+            }, 200);
         });
     });
     
-    // Add subtle parallax effect to floating elements
-    document.addEventListener('mousemove', function(e) {
-        const circles = document.querySelectorAll('.floating-circle');
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        circles.forEach((circle, index) => {
-            const speed = (index + 1) * 0.5;
-            const xOffset = (x - 0.5) * speed * 20;
-            const yOffset = (y - 0.5) * speed * 20;
-            
-            circle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-        });
+    // Add pulse animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialize form field animations
+    document.querySelectorAll('.form-field').forEach((field, index) => {
+        field.style.opacity = '0';
+        field.style.transform = 'translateY(20px)';
+        field.style.transition = 'all 0.6s ease';
     });
 </script>
 {% endblock %}

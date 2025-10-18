@@ -11,90 +11,66 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentLesson = null;
     let selectedAnswer = null;
     
-    // Lesson data
+    // Lesson data (updated)
     const lessons = {
-        budgeting: {
-            title: "Budgeting Basics",
-            icon: "💰",
+        quiz: {
+            title: "Quiz",
+            icon: "�",
             objectives: [
-                "Understand the 50/30/20 rule",
-                "Learn to track income and expenses",
-                "Create a personal budget plan",
-                "Identify areas to cut unnecessary spending"
+                "Check your understanding quickly",
+                "Identify topics to review",
+                "Earn XP for correct answers"
             ],
             quiz: {
-                question: "What does the 50/30/20 rule suggest for your after-tax income?",
+                question: "Which budget approach is simplest for beginners?",
                 options: [
-                    "50% needs, 30% wants, 20% savings",
-                    "50% savings, 30% needs, 20% wants",
-                    "50% wants, 30% savings, 20% needs",
-                    "50% housing, 30% food, 20% entertainment"
-                ],
-                correct: 0,
-                explanation: "The 50/30/20 rule suggests allocating 50% for needs, 30% for wants, and 20% for savings and debt repayment."
-            }
-        },
-        saving: {
-            title: "Smart Saving",
-            icon: "🏦",
-            objectives: [
-                "Set up an emergency fund",
-                "Understand different types of savings accounts",
-                "Learn about compound interest",
-                "Create SMART savings goals"
-            ],
-            quiz: {
-                question: "How many months of expenses should you keep in an emergency fund?",
-                options: [
-                    "1-2 months",
-                    "3-6 months",
-                    "9-12 months",
-                    "24 months"
+                    "Zero-based budgeting",
+                    "The 50/30/20 rule",
+                    "Daily cash envelopes",
+                    "Only track savings"
                 ],
                 correct: 1,
-                explanation: "Financial experts recommend keeping 3-6 months of living expenses in an emergency fund for unexpected situations."
+                explanation: "The 50/30/20 rule is a simple starting framework: 50% needs, 30% wants, 20% saving/debt."
             }
         },
-        investing: {
-            title: "Investment Fundamentals",
-            icon: "📈",
+        reading: {
+            title: "Reading",
+            icon: "📚",
             objectives: [
-                "Understand risk vs. return",
-                "Learn about diversification",
-                "Explore different investment types",
-                "Understand compound growth"
+                "Learn key money concepts fast",
+                "Pick up practical student tips",
+                "Build confidence with short reads"
             ],
             quiz: {
-                question: "What is diversification in investing?",
+                question: "What’s a good first goal for an emergency fund?",
                 options: [
-                    "Putting all money in one stock",
-                    "Spreading investments across different assets",
-                    "Only investing in bonds",
-                    "Timing the market perfectly"
+                    "$100",
+                    "$500–$1,000",
+                    "$5,000",
+                    "One year of rent"
                 ],
                 correct: 1,
-                explanation: "Diversification means spreading your investments across different types of assets to reduce risk."
+                explanation: "Many students start with $500–$1,000 and then build toward 3–6 months of expenses."
             }
         },
-        debt: {
-            title: "Debt Management",
-            icon: "🏗️",
+        simulation: {
+            title: "Simulation",
+            icon: "🧪",
             objectives: [
-                "Understand good vs. bad debt",
-                "Learn debt repayment strategies",
-                "Explore debt consolidation options",
-                "Improve credit score management"
+                "Practice realistic money decisions",
+                "Balance trade-offs under constraints",
+                "See outcome impact immediately"
             ],
             quiz: {
-                question: "Which debt repayment strategy focuses on paying off the highest interest rate debt first?",
+                question: "In a tight month, which cut is least harmful long-term?",
                 options: [
-                    "Debt snowball",
-                    "Debt avalanche",
-                    "Minimum payments only",
-                    "Debt consolidation"
+                    "Skip minimum loan payment",
+                    "Delay rent",
+                    "Reduce eating out",
+                    "Cancel health insurance"
                 ],
-                correct: 1,
-                explanation: "The debt avalanche method focuses on paying off debts with the highest interest rates first to minimize total interest paid."
+                correct: 2,
+                explanation: "Cutting discretionary spending (like eating out) avoids fees, credit damage, or risk to health."
             }
         }
     };
