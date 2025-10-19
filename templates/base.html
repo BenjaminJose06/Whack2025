@@ -19,28 +19,34 @@
 <body>
     {% if session.user_id %}
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <h1>WHACK2025</h1>
-            </div>
-            <div class="nav-user">
-                <div class="user-avatar">
-                    <div class="avatar-circle">
-                        <span class="level-text">{{ user.level if user else 1 }}</span>
-                    </div>
-                </div>
-                <div class="user-info">
-                    <div class="user-email">{{ session.user_email }}</div>
-                    <div class="xp-bar">
-                        <div class="xp-progress" id="xp-progress" data-progress="{{ user.xp_progress_percentage() if user else 0 }}"></div>
-                        <span class="xp-text" id="xp-text">{{ user.xp if user else 0 }} XP</span>
-                    </div>
-                </div>
-                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    <div class="nav-container">
+        <!-- Left -->
+        <div class="nav-left">
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+
+        <!-- Center -->
+        <div class="nav-center">
+            <h1 class="nav-title">WHACK2025</h1>
+            <div class="xp-bar">
+                <div class="xp-progress" id="xp-progress" data-progress="{{ user.xp_progress_percentage() if user else 0 }}"></div>
+                <!-- Moved xp-text inside xp-bar so it’s positioned relative to the bar -->
+                <span class="xp-text" id="xp-text">{{ user.xp_progress_text() if user else '0 / 100 XP' }}</span>
             </div>
         </div>
+
+        <!-- Right -->
+        <div class="nav-right">
+            <div class="level-badge">Level <span class="level-text">{{ user.level if user else 1 }}</span></div>
+            <div class="user-name">{{ session.username if session.username else 'User' }}</div>
+        </div>
+    </div>
     </nav>
+
     {% endif %}
+
+        <!-- Global XP flash (shows +XP earned across site) -->
+        <div id="xpFlash" aria-live="polite" aria-atomic="true"></div>
 
     <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -68,13 +74,13 @@
             });
         });
 
-        // Auto-hide flash messages after 5 seconds
+        // Auto-hide flash messages after 2 seconds
         setTimeout(() => {
             document.querySelectorAll('.flash-message').forEach(msg => {
                 msg.style.opacity = '0';
                 setTimeout(() => msg.remove(), 300);
             });
-        }, 5000);
+        }, 2000);
 
         // Initialize XP progress bar
         function initializeXPBar() {
@@ -92,7 +98,12 @@
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('xp-progress').style.width = data.progress_percentage + '%';
-                        document.getElementById('xp-text').textContent = data.xp + ' XP';
+                        // Prefer server-provided progress_text if available
+                        if (data.progress_text) {
+                            document.getElementById('xp-text').textContent = data.progress_text;
+                        } else {
+                            document.getElementById('xp-text').textContent = data.xp + ' XP';
+                        }
                         document.querySelector('.level-text').textContent = data.level;
                     })
                     .catch(error => console.error('Error updating stats:', error));
@@ -104,6 +115,63 @@
 
         // Update stats every 30 seconds
         setInterval(updateUserStats, 30000);
+
+        // === Global XP flash + fetch interceptor ===
+        // UI helper to show "+X XP" briefly near the top center
+        window.showXPFlash = function(xp) {
+            try {
+                const el = document.getElementById('xpFlash');
+                if (!el) return;
+                const amt = Number(xp) || 0;
+                if (amt <= 0) return;
+                el.textContent = `+${amt} XP`;
+                el.classList.remove('show');
+                // reflow to restart animation
+                void el.offsetWidth;
+                el.classList.add('show');
+                // hide after ~3 seconds
+                clearTimeout(window.__xpFlashTimer);
+                window.__xpFlashTimer = setTimeout(() => el.classList.remove('show'), 3000);
+            } catch {}
+        };
+
+        // Intercept XP awards to trigger the flash universally
+        (function(){
+            const originalFetch = window.fetch;
+            window.fetch = async function(input, init) {
+                const isAddXp = (typeof input === 'string' && input.includes('/api/add_xp')) ||
+                                (typeof input === 'object' && input && input.url && String(input.url).includes('/api/add_xp'));
+                if (!isAddXp) return originalFetch(input, init);
+
+                let xpFromBody = 0;
+                try {
+                    const body = init && init.body;
+                    if (body) {
+                        const obj = typeof body === 'string' ? JSON.parse(body) : body;
+                        if (obj && typeof obj.xp === 'number') xpFromBody = obj.xp;
+                    }
+                } catch {}
+
+                const res = await originalFetch(input, init);
+                try {
+                    if (res && res.ok) {
+                        // Prefer server-confirmed XP if response includes it
+                        // but fall back to request body value
+                        let xpEarned = xpFromBody;
+                        try {
+                            const cloned = res.clone();
+                            const data = await cloned.json().catch(() => null);
+                            if (data && typeof data.xp === 'number') xpEarned = data.xp;
+                        } catch {}
+                        if (xpEarned > 0) {
+                            window.showXPFlash(xpEarned);
+                            if (typeof updateUserStats === 'function') updateUserStats();
+                        }
+                    }
+                } catch {}
+                return res;
+            };
+        })();
     </script>
     {% endblock %}
 </body>

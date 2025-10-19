@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Bank Zone - WHACK2025{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <div class="game-header">
+        <h1>Bank Zone</h1>
+        <p>Explore banking tools: advisor chat and investing/credit resources</p>
+        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
+    </div>
+    
+    <div class="games-list">
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>AI Advisor</h3>
+                <p>Chat with a student-friendly financial advisor for quick guidance.</p>
+            </div>
+            <a href="{{ url_for('advisor') }}" class="play-button play-small">Open</a>
+        </div>
+
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Investing & Credit</h3>
+                <p>Learn basics and explore simulated tools. More coming soon.</p>
+            </div>
+            <a href="{{ url_for('invest_tools') }}" class="play-button play-small">Open</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

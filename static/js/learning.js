@@ -1,6 +1,7 @@
 // Learning.js - Learning zone functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const lessonCards = document.querySelectorAll('.lesson-card');
+    // const lessonCards = document.querySelectorAll('.lesson-card');
+    const lessonRows = document.querySelectorAll('.lesson-row');
     const modal = document.getElementById('lessonModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -99,20 +100,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Add click handlers to lesson cards
-    lessonCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const lessonType = this.dataset.lesson;
+    // Add click handlers to lesson rows and their "Open" buttons
+    // lessonCards.forEach(card => {
+    //     card.addEventListener('click', function() {
+    //         const lessonType = this.dataset.lesson;
+    //         if (lessonType === 'reading') {
+    //             window.location.href = '/reading';
+    //             return;
+    //         }
+    //         if (lessonType === 'quiz') {
+    //             window.location.href = '/quiz';
+    //             return;
+    //         }
+    //         openLesson(lessonType);
+    //     });
+    // });
+
+    lessonRows.forEach(row => {
+        const handler = () => {
+            const lessonType = row.dataset.lesson;
+            if (lessonType === 'reading') { window.location.href = '/reading'; return; }
+            if (lessonType === 'quiz')    { window.location.href = '/quiz';    return; }
             openLesson(lessonType);
-        });
-        
-        // Add hover animation
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) rotate(2deg)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) rotate(0deg)';
+        };
+        const btn = row.querySelector('.open-small');
+        if (btn) btn.addEventListener('click', handler);
+        row.addEventListener('click', (e) => {
+            if (e.target.closest('.open-small')) return; // already handled by button
+            handler();
         });
     });
     

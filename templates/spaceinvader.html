@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spaceinvader.css') }}">
+</head>
+<body>
+    <canvas id="game-canvas" width="640" height="640"></canvas>
+  <!-- In-game exit (hidden on start and game over) -->
+  <a id="inGameExit" class="in-game-exit" href="/games" aria-label="Exit to Game Zone" style="display:none;">Exit</a>
+    <div class="ui-overlay">
+        <div id="startScreen" class="start-screen">
+            <h1>Space Invaders</h1>
+            <div class="hint-row">
+                <span class="kbd">←</span>
+                <span class="kbd">→</span>
+                <span class="sep">or</span>
+                <span class="kbd">A</span>
+                <span class="kbd">D</span>
+                <span class="hint-text">Move</span>
+                <span class="sep">•</span>
+                <span class="kbd">X</span>
+                <span class="hint-text">Shoot</span>
+            </div>
+            <p>Defend Earth from the alien invasion!</p>
+            <button id="startButton" class="primary">Start Game</button>
+        </div>
+        <div id="gameOverScreen" class="game-over-screen" style="display: none;">
+            <h1>Game Over</h1>
+            <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+            <p class="final-wave">Wave: <span id="finalWave">1</span></p>
+            <div class="btn-row">
+                <button id="restartButton" class="primary">Play Again</button>
+                <a class="ghost-button" href="/games" aria-label="Back to Game Zone">Back to Game Zone</a>
+            </div>
+        </div>
+        <div id="quizScreen" class="quiz-screen" style="display: none;">
+            <div id="quizCard" class="quiz-card">
+                <h1 class="quiz-title">Quiz Time!</h1>
+                <p id="questionText" class="quiz-text"></p>
+                <div id="answerButtons" class="quiz-answers"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pointsFeedback"></div>
+    <script src="{{ url_for('static', filename='js/spaceinvader.js') }}" defer></script>
+</body>
+</html>

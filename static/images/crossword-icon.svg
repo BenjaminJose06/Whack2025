@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="20" fill="#0b1733"/>
+  <!-- grid -->
+  <g stroke="#1f2b52" stroke-width="2">
+    <rect x="20" y="20" width="88" height="88" fill="#111a36"/>
+    <!-- grid lines -->
+    <g opacity="0.9">
+      <!-- vertical -->
+      <path d="M32 20V108"/>
+      <path d="M44 20V108"/>
+      <path d="M56 20V108"/>
+      <path d="M68 20V108"/>
+      <path d="M80 20V108"/>
+      <path d="M92 20V108"/>
+      <!-- horizontal -->
+      <path d="M20 32H108"/>
+      <path d="M20 44H108"/>
+      <path d="M20 56H108"/>
+      <path d="M20 68H108"/>
+      <path d="M20 80H108"/>
+      <path d="M20 92H108"/>
+    </g>
+  </g>
+  <!-- filled cells -->
+  <rect x="32" y="32" width="12" height="12" fill="#0a0f22"/>
+  <rect x="44" y="44" width="12" height="12" fill="#0a0f22"/>
+  <rect x="56" y="56" width="12" height="12" fill="#0a0f22"/>
+  <rect x="68" y="44" width="12" height="12" fill="#0a0f22"/>
+  <rect x="80" y="68" width="12" height="12" fill="#0a0f22"/>
+  <!-- letters -->
+  <g font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="12" fill="#dbe5ff">
+    <text x="38" y="41" text-anchor="middle">C</text>
+    <text x="50" y="53" text-anchor="middle">A</text>
+    <text x="62" y="65" text-anchor="middle">S</text>
+    <text x="74" y="53" text-anchor="middle">H</text>
+    <text x="86" y="77" text-anchor="middle">$</text>
+  </g>
+</svg>
