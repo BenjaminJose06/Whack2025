@@ -5,60 +5,27 @@
 {% block content %}
 <div class="learning-container">
     <div class="learning-header">
-        <h1>📚 Learning Zone</h1>
+        <h1>Learning Zone</h1>
         <p>Expand your financial knowledge through interactive lessons</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
     </div>
     
-    <div class="lessons-grid">
-        <div class="lesson-card" data-lesson="quiz">
-            <div class="lesson-icon">�</div>
-            <h3>Quiz</h3>
-            <p>Test your knowledge with quick questions</p>
-            <div class="lesson-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-                <span class="progress-text">0% Complete</span>
+    <div class="lessons-list">
+        <div class="lesson-row" data-lesson="quiz">
+            <div class="lesson-meta">
+                <h3>Quiz</h3>
+                <p>Test your knowledge with quick questions</p>
             </div>
+            <button class="play-button open-small" type="button">Open</button>
         </div>
         
-        <div class="lesson-card" data-lesson="reading">
-            <div class="lesson-icon">📚</div>
-            <h3>Reading</h3>
-            <p>Read bite-sized guides and tips</p>
-            <div class="lesson-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-                <span class="progress-text">0% Complete</span>
+        <div class="lesson-row" data-lesson="reading">
+            <div class="lesson-meta">
+                <h3>Reading</h3>
+                <p>Read bite-sized guides and tips</p>
             </div>
+            <button class="play-button open-small" type="button">Open</button>
         </div>
-        
-        <div class="lesson-card" data-lesson="simulation">
-            <div class="lesson-icon">🧪</div>
-            <h3>Simulation</h3>
-            <p>Practice decisions in realistic scenarios</p>
-            <div class="lesson-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-                <span class="progress-text">0% Complete</span>
-            </div>
-        </div>
-        
-        <!-- Advisor placeholder: links to dedicated page (empty for now) -->
-        <a href="{{ url_for('advisor') }}" class="lesson-card" style="text-decoration: none; color: inherit;">
-            <div class="lesson-icon">🧭</div>
-            <h3>Advisor</h3>
-            <p><!-- Intentionally left empty for future API-driven content --></p>
-            <div class="lesson-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-                <span class="progress-text">0% Complete</span>
-            </div>
-        </a>
     </div>
     
     <div class="lesson-modal" id="lessonModal">

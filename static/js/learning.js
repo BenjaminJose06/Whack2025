@@ -1,6 +1,7 @@
 // Learning.js - Learning zone functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const lessonCards = document.querySelectorAll('.lesson-card');
+    // const lessonCards = document.querySelectorAll('.lesson-card');
+    const lessonRows = document.querySelectorAll('.lesson-row');
     const modal = document.getElementById('lessonModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -11,84 +12,122 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentLesson = null;
     let selectedAnswer = null;
     
-    // Lesson data (updated)
+    // Lesson data
     const lessons = {
-        quiz: {
-            title: "Quiz",
-            icon: "�",
+        budgeting: {
+            title: "Budgeting Basics",
+            icon: "💰",
             objectives: [
-                "Check your understanding quickly",
-                "Identify topics to review",
-                "Earn XP for correct answers"
+                "Understand the 50/30/20 rule",
+                "Learn to track income and expenses",
+                "Create a personal budget plan",
+                "Identify areas to cut unnecessary spending"
             ],
             quiz: {
-                question: "Which budget approach is simplest for beginners?",
+                question: "What does the 50/30/20 rule suggest for your after-tax income?",
                 options: [
-                    "Zero-based budgeting",
-                    "The 50/30/20 rule",
-                    "Daily cash envelopes",
-                    "Only track savings"
+                    "50% needs, 30% wants, 20% savings",
+                    "50% savings, 30% needs, 20% wants",
+                    "50% wants, 30% savings, 20% needs",
+                    "50% housing, 30% food, 20% entertainment"
                 ],
-                correct: 1,
-                explanation: "The 50/30/20 rule is a simple starting framework: 50% needs, 30% wants, 20% saving/debt."
+                correct: 0,
+                explanation: "The 50/30/20 rule suggests allocating 50% for needs, 30% for wants, and 20% for savings and debt repayment."
             }
         },
-        reading: {
-            title: "Reading",
-            icon: "📚",
+        saving: {
+            title: "Smart Saving",
+            icon: "🏦",
             objectives: [
-                "Learn key money concepts fast",
-                "Pick up practical student tips",
-                "Build confidence with short reads"
+                "Set up an emergency fund",
+                "Understand different types of savings accounts",
+                "Learn about compound interest",
+                "Create SMART savings goals"
             ],
             quiz: {
-                question: "What’s a good first goal for an emergency fund?",
+                question: "How many months of expenses should you keep in an emergency fund?",
                 options: [
-                    "$100",
-                    "$500–$1,000",
-                    "$5,000",
-                    "One year of rent"
+                    "1-2 months",
+                    "3-6 months",
+                    "9-12 months",
+                    "24 months"
                 ],
                 correct: 1,
-                explanation: "Many students start with $500–$1,000 and then build toward 3–6 months of expenses."
+                explanation: "Financial experts recommend keeping 3-6 months of living expenses in an emergency fund for unexpected situations."
             }
         },
-        simulation: {
-            title: "Simulation",
-            icon: "🧪",
+        investing: {
+            title: "Investment Fundamentals",
+            icon: "📈",
             objectives: [
-                "Practice realistic money decisions",
-                "Balance trade-offs under constraints",
-                "See outcome impact immediately"
+                "Understand risk vs. return",
+                "Learn about diversification",
+                "Explore different investment types",
+                "Understand compound growth"
             ],
             quiz: {
-                question: "In a tight month, which cut is least harmful long-term?",
+                question: "What is diversification in investing?",
                 options: [
-                    "Skip minimum loan payment",
-                    "Delay rent",
-                    "Reduce eating out",
-                    "Cancel health insurance"
+                    "Putting all money in one stock",
+                    "Spreading investments across different assets",
+                    "Only investing in bonds",
+                    "Timing the market perfectly"
                 ],
-                correct: 2,
-                explanation: "Cutting discretionary spending (like eating out) avoids fees, credit damage, or risk to health."
+                correct: 1,
+                explanation: "Diversification means spreading your investments across different types of assets to reduce risk."
+            }
+        },
+        debt: {
+            title: "Debt Management",
+            icon: "🏗️",
+            objectives: [
+                "Understand good vs. bad debt",
+                "Learn debt repayment strategies",
+                "Explore debt consolidation options",
+                "Improve credit score management"
+            ],
+            quiz: {
+                question: "Which debt repayment strategy focuses on paying off the highest interest rate debt first?",
+                options: [
+                    "Debt snowball",
+                    "Debt avalanche",
+                    "Minimum payments only",
+                    "Debt consolidation"
+                ],
+                correct: 1,
+                explanation: "The debt avalanche method focuses on paying off debts with the highest interest rates first to minimize total interest paid."
             }
         }
     };
     
-    // Add click handlers to lesson cards
-    lessonCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const lessonType = this.dataset.lesson;
+    // Add click handlers to lesson rows and their "Open" buttons
+    // lessonCards.forEach(card => {
+    //     card.addEventListener('click', function() {
+    //         const lessonType = this.dataset.lesson;
+    //         if (lessonType === 'reading') {
+    //             window.location.href = '/reading';
+    //             return;
+    //         }
+    //         if (lessonType === 'quiz') {
+    //             window.location.href = '/quiz';
+    //             return;
+    //         }
+    //         openLesson(lessonType);
+    //     });
+    // });
+
+    lessonRows.forEach(row => {
+        const handler = () => {
+            const lessonType = row.dataset.lesson;
+            if (lessonType === 'reading') { window.location.href = '/reading'; return; }
+            if (lessonType === 'quiz')    { window.location.href = '/quiz';    return; }
             openLesson(lessonType);
-        });
-        
-        // Add hover animation
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) rotate(2deg)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) rotate(0deg)';
+        };
+        const btn = row.querySelector('.open-small');
+        if (btn) btn.addEventListener('click', handler);
+        row.addEventListener('click', (e) => {
+            if (e.target.closest('.open-small')) return; // already handled by button
+            handler();
         });
     });
     

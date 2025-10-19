@@ -1,0 +1,220 @@
+/* Register Page Styles - extracted from template */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-wrapper {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.register-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+}
+
+.register-right {
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 3rem;
+}
+
+.brand-section {
+    margin-bottom: 4rem;
+}
+
+.brand-logo {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: -2px;
+}
+
+.brand-tagline {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.features-list {
+    text-align: left;
+    max-width: 350px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.register-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.register-subtitle {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 0;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-field {
+    text-align: left;
+}
+
+.form-field label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-field input::placeholder {
+    color: #9ca3af;
+}
+
+.register-button {
+    background: #000000;
+    color: white;
+    padding: 1.5rem 2rem;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.3);
+}
+
+.register-button:hover {
+    transform: translateY(-1px);
+    background: #333333;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+.register-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.register-footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 2rem;
+}
+
+.register-footer p {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.register-footer a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-footer a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .register-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .register-left {
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+
+    .register-right {
+        min-height: auto;
+        padding: 1rem;
+    }
+
+    .register-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .brand-logo {
+        font-size: 2.5rem;
+    }
+
+    .register-title {
+        font-size: 2rem;
+    }
+}

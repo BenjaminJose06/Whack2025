@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/froodle.css') }}">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="score">0</div>
+    <div id="xpFlash"></div>
+    <div id="pointsFeedback"></div>
+    <!-- In-game exit (hidden on start and game over) -->
+    <a id="inGameExit" class="in-game-exit" href="/games" aria-label="Exit to Game Zone" style="display:none;">Exit</a>
+    <div class="ui-overlay">
+        <div id="startScreen" class="start-screen">
+            <div class="start-hero">
+                <div class="start-content">
+                    <div class="title-wrap">
+                        <h1 class="fancy-title">Jump</h1>
+                        <p class="tagline">Arcade vertical runner</p>
+                    </div>
+
+                    <div class="hint-row">
+                        <span class="kbd">←</span>
+                        <span class="kbd">→</span>
+                        <span class="sep">or</span>
+                        <span class="kbd">A</span>
+                        <span class="kbd">D</span>
+                        <span class="hint-text">Move left/right</span>
+                    </div>
+
+                    <div class="cta-wrap">
+                        <button id="startButton" class="primary cta-pulse">Start</button>
+                    </div>
+
+                    <div class="start-actions">
+                        <a class="exit-link" href="/games" aria-label="Back to Game Zone">Back to Game Zone</a>
+                    </div>
+                </div>
+
+                <div class="start-art">
+                    <img class="piggy-hero" src="{{ url_for('static', filename='images/piggy.webp') }}" alt="Piggybank" loading="lazy" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+        <div id="gameOverScreen" class="game-over-screen" style="display: none;">
+            <h1>Game Over</h1>
+            <p class="final-score">Score: <span id="finalScore">0</span></p>
+            <div class="btn-row">
+                <button id="restartButton" class="primary">Restart</button>
+                <a class="ghost-button" href="/games" aria-label="Back to Game Zone">Back to Game Zone</a>
+            </div>
+        </div>
+        <div id="quizScreen" class="quiz-screen" style="display: none;">
+            <div id="quizCard" class="quiz-card">
+                <h1 class="quiz-title">Quiz Time!</h1>
+                <p id="questionText" class="quiz-text"></p>
+                <div id="answerButtons" class="quiz-answers"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/froodle.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.bank-container{max-width:1200px;margin:0 auto;padding:2rem;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);min-height:calc(100vh - 80px)}
+.bank-header{text-align:center;margin-bottom:3rem;color:#fff}
+.bank-header h1{font-size:3rem;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+.bank-header p{font-size:1.2rem;opacity:.9;margin-bottom:2rem}
+.back-button{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;padding:.75rem 1.5rem;text-decoration:none;border-radius:25px;font-weight:500;transition:all .3s ease;border:1px solid rgba(255,255,255,0.3)}
+.back-button:hover{background:rgba(255,255,255,0.3);transform:translateY(-2px);color:#fff;text-decoration:none}
+.api-content{background:#fff;border-radius:20px;padding:3rem;box-shadow:0 20px 40px rgba(0,0,0,0.2);margin-top:2rem}
+.api-section{margin-bottom:3rem}
+.api-section h2{color:#333;font-size:1.8rem;margin-bottom:1.5rem;border-bottom:2px solid #f093fb;padding-bottom:.5rem}
+.todo-box{background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);border:2px dashed #ff8a65;border-radius:10px;padding:2rem;margin:1.5rem 0;text-align:center}
+.todo-box h3{color:#d84315;font-size:1.5rem;margin-bottom:1rem}
+.todo-box p{color:#bf360c;font-size:1.1rem;margin-bottom:.5rem}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+.feature-card{background:#f8fafc;padding:1.5rem;border-radius:10px;border-left:4px solid #f093fb}
+.feature-card h3{color:#333;font-size:1.3rem;margin-bottom:1rem}
+.feature-card ul{color:#666;padding-left:1.5rem}
+.feature-card li{margin-bottom:.5rem}
+.api-demo{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:10px;font-family:'Courier New',monospace;margin:1rem 0;overflow-x:auto}
+.api-demo pre{margin:0;white-space:pre-wrap}
+.endpoint{color:#34d399;font-weight:bold}
+.method{color:#fbbf24;font-weight:bold}
+.connect-section{text-align:center;margin-top:3rem;padding:2rem;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:15px;color:#fff}
+.connect-button{background:rgba(255,255,255,0.2);color:#fff;padding:1rem 2rem;border:2px solid rgba(255,255,255,0.3);border-radius:25px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all .3s ease;margin:.5rem;text-decoration:none;display:inline-block}
+.connect-button:hover{background:rgba(255,255,255,0.3);transform:translateY(-2px);color:#fff;text-decoration:none}
+@media (max-width:768px){.bank-header h1{font-size:2rem}.api-content{padding:1.5rem;margin:1rem}.feature-grid{grid-template-columns:1fr;gap:1rem}}

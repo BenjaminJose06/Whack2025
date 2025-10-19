@@ -5,67 +5,53 @@
 {% block content %}
 <div class="game-container">
     <div class="game-header">
-        <h1>🎮 Game Zone</h1>
+        <h1>Game Zone</h1>
         <p>Learn financial skills through fun and engaging games</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
     </div>
     
-    <div class="games-grid">
-        <div class="game-card">
-            <div class="game-icon">🎮</div>
-            <h3>Game1</h3>
-            <p>TODO: Game1 description</p>
-            <div class="game-stats">
-                <span class="high-score">High Score: <span id="game1-high-score">0</span></span>
+    <div class="games-list">
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Word Search</h3>
+                <p>Find hidden finance terms to boost your money vocabulary.</p>
             </div>
-            <a href="{{ url_for('game1') }}" class="play-button">Play Now</a>
+            <div class="game-actions">
+                <img class="game-row-icon" src="{{ url_for('static', filename='images/word_search-icon.png') }}" alt="Word Search icon" loading="lazy">
+                <a href="{{ url_for('game1') }}" class="play-button play-small">Play</a>
+            </div>
         </div>
-        
-        <div class="game-card">
-            <div class="game-icon">🎮</div>
-            <h3>Game2</h3>
-            <p>TODO: Game2 description</p>
-            <div class="game-stats">
-                <span class="high-score">High Score: <span id="game2-high-score">0</span></span>
+
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Froodle</h3>
+                <p>Jump higher while answering quick finance questions.</p>
             </div>
-            <a href="{{ url_for('game2') }}" class="play-button">Play Now</a>
+            <div class="game-actions">
+                <img class="game-row-icon" src="{{ url_for('static', filename='images/froodle-icon.png') }}" alt="Froodle icon" loading="lazy">
+                <a href="{{ url_for('game2') }}" class="play-button play-small">Play</a>
+            </div>
         </div>
-        
-        <div class="game-card">
-            <div class="game-icon">🎮</div>
-            <h3>Game3</h3>
-            <p>TODO: Game3 description</p>
-            <div class="game-stats">
-                <span class="high-score">High Score: <span id="game3-high-score">0</span></span>
+
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Space Invaders</h3>
+                <p>Blast through aliens and level up your money smarts.</p>
             </div>
-            <a href="{{ url_for('game3') }}" class="play-button">Play Now</a>
+            <div class="game-actions">
+                <img class="game-row-icon" src="{{ url_for('static', filename='images/space_invader-icon.png') }}" alt="Space Invaders icon" loading="lazy">
+                <a href="{{ url_for('game3') }}" class="play-button play-small">Play</a>
+            </div>
         </div>
-    </div>
-    
-    <div class="game-modal" id="gameModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="gameTitle">Game Title</h2>
-                <button class="close-modal">&times;</button>
+
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Crossword</h3>
+                <p>Fill a fresh puzzle every time using finance terms and definitions.</p>
             </div>
-            <div class="modal-body">
-                <div class="game-canvas-container">
-                    <canvas id="gameCanvas" width="800" height="600"></canvas>
-                    <div class="game-ui">
-                        <div class="game-score">Score: <span id="currentScore">0</span></div>
-                        <div class="game-time">Time: <span id="gameTime">60</span>s</div>
-                        <div class="game-lives">Lives: <span id="gameLives">3</span></div>
-                    </div>
-                    <div class="game-controls">
-                        <button id="startGame" class="game-control-btn">Start Game</button>
-                        <button id="pauseGame" class="game-control-btn">Pause</button>
-                        <button id="restartGame" class="game-control-btn">Restart</button>
-                    </div>
-                </div>
-                <div class="game-instructions" id="gameInstructions">
-                    <h3>How to Play:</h3>
-                    <div id="instructionContent"></div>
-                </div>
+            <div class="game-actions">
+                <img class="game-row-icon" src="{{ url_for('static', filename='images/crossword-icon.png') }}" alt="Crossword icon" loading="lazy">
+                <a href="{{ url_for('game4') }}" class="play-button play-small">Play</a>
             </div>
         </div>
     </div>
@@ -74,5 +60,4 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='js/games.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,210 @@
+/* Word Search Game Styles - extracted from template */
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #f6f8fc;
+    color: #111827;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    /* Let the page height be content-based to avoid large empty bottom area pregame */
+    min-height: auto;
+}
+
+.game-container {
+    max-width: none;
+    margin: 0;
+    background: #ffffff80;
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: clamp(12px, 2vw, 24px);
+    /* Let content determine height to avoid large empty areas */
+    min-height: auto;
+    display: block;
+}
+
+/* (Removed complex start-mode centering; keep simple margins on the card) */
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.score-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #374151;
+}
+
+.content-row {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* centers grid vertically when container is taller */
+    background: linear-gradient(180deg, #ffffff 0%, #f3f6fb 100%);
+    border: 1px solid #e6eefb;
+    border-radius: 12px;
+    padding: 12px; /* reduce padding to give canvas more room */
+    /* Responsive height so the grid can center and scale without huge gaps */
+    height: auto;
+    min-height: clamp(380px, 72vmin, 880px);
+}
+
+#wordCanvas {
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    user-select: none;
+    -webkit-user-select: none;
+    /* Make the grid larger while respecting container and viewport */
+    width: clamp(420px, 72vmin, 860px);
+    max-width: 100%;
+    height: auto; /* keep aspect ratio */
+}
+
+.words-list h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 12px 0;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.word-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 10px;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 999px;
+    font-size: 12px;
+    color: #1e3a8a;
+}
+
+.word-item.found {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+    text-decoration: line-through;
+}
+
+.actions-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+button.primary, button.secondary, button {
+    appearance: none;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button.primary {
+    background: linear-gradient(135deg, #1f2937 0%, #0f172a 100%);
+    color: #fff;
+}
+
+button.primary:hover { background: #1f2937; }
+
+button.secondary {
+    background: #eef2ff;
+    color: #1e3a8a;
+}
+
+button.secondary:hover { background: #e5e7eb; }
+
+.start-screen {
+    text-align: center;
+    padding: 18px 16px;
+    border: 1px dashed #c7d2fe;
+    border-radius: 12px;
+    background: #ffffff;
+    max-width: 720px;
+    margin: 12vh auto;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+
+/* Ensure inactive screens don't reserve space */
+#gameScreen[style*="display: none"],
+#gameOverScreen[style*="display: none"] {
+    display: none !important;
+}
+
+.start-actions { margin-top: 12px; }
+.exit-link {
+    color: #1e3a8a;
+    text-decoration: none;
+    font-weight: 600;
+}
+.exit-link:hover { text-decoration: underline; }
+
+.back-button {
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.start-screen p { color: #4b5563; margin: 8px 0; }
+
+#pointsFeedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes pointsAnimation {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    40% { opacity: 1; transform: translate(-50%, -52%) scale(1.05); }
+    100% { opacity: 0; transform: translate(-50%, -56%) scale(1); }
+}
+
+.show-points {
+    animation: pointsAnimation 3s ease-out;
+}
+
+.game-over { text-align: center; padding: 16px; }
+
+.final-score { font-weight: 700; color: #111827; }
+
+@media (max-width: 980px) {
+    .content-row { grid-template-columns: 1fr; }
+}

@@ -1,141 +1,107 @@
-// Simple Quiz client
-(function() {
-  const root = document.getElementById('quiz-root');
-  const state = { questions: [], answers: {}, submitted: false, result: null };
+// Library Quiz Logic (extracted from quiz.html)
+// Depends on DOM elements with ids: question, options, feedback, score
+// Uses global helpers: showXPFlash (optional), updateUserStats (optional)
 
-  function el(html) {
-    const div = document.createElement('div');
-    div.innerHTML = html.trim();
-    return div.firstChild;
+const quiz = [
+  { question: "What does APR stand for?", options: ["Annual Percentage Rate", "Average Payment Ratio", "Account Payback Rate", "Automatic Payment Request"], answer: 0 },
+  { question: "Which one is considered 'good debt'?", options: ["High-interest credit card", "Student loan", "Gambling loan", "Payday loan"], answer: 1 },
+  { question: "What is a credit score used for?", options: ["Determining your favorite color", "Approving loans or credit", "Setting tax rates", "Tracking shopping history"], answer: 1 },
+  { question: "What happens if you miss a credit card payment?", options: ["Nothing happens", "You earn bonus points", "You may be charged a late fee", "Your credit score increases"], answer: 2 },
+  { question: "What is a budget?", options: ["A shopping list", "A plan for spending and saving money", "A type of loan", "A credit card"], answer: 1 },
+  { question: "What does 'interest' mean on a loan?", options: ["Free money", "The cost of borrowing money", "A discount", "A reward"], answer: 1 },
+];
+
+let current = 0;
+let score = 0;
+let isAnswering = false;
+
+let questionEl = document.getElementById('question');
+let optionsDiv = document.getElementById('options');
+let feedbackEl = document.getElementById('feedback');
+let scoreEl = document.getElementById('score');
+
+function loadQuestion() {
+  if (current >= quiz.length) {
+    showCompletion();
+    return;
   }
+  const q = quiz[current];
+  questionEl.textContent = q.question;
+  optionsDiv.innerHTML = '';
+  feedbackEl.textContent = '';
+  isAnswering = false;
+  q.options.forEach((opt, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(index);
+    optionsDiv.appendChild(btn);
+  });
+}
 
-  function render() {
-    root.innerHTML = '';
+function checkAnswer(selected) {
+  if (isAnswering) return;
+  isAnswering = true;
+  const correct = quiz[current].answer;
+  if (selected === correct) {
+    feedbackEl.textContent = 'Correct!';
+    feedbackEl.className = 'quiz-feedback correct';
+    score += 100;
+    scoreEl.textContent = score;
+    setTimeout(() => { current++; loadQuestion(); }, 700);
+  } else {
+    feedbackEl.textContent = 'Wrong! Try again.';
+    feedbackEl.className = 'quiz-feedback incorrect';
+    score = Math.max(0, score - 25);
+    scoreEl.textContent = score;
+    setTimeout(() => { feedbackEl.textContent = ''; isAnswering = false; }, 600);
+  }
+}
 
-    if (state.submitted && state.result) {
-      renderResults();
-      return;
-    }
-
-    const header = el(`
-      <div style="background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <div>
-            <strong>${state.questions.length} Questions</strong>
-          </div>
-          <div style="display:flex;gap:0.5rem;">
-            <button id="reload" class="play-button">New Quiz</button>
-            <button id="submit" class="quiz-button">Submit</button>
-          </div>
-        </div>
+function showCompletion() {
+  const container = document.querySelector('.quiz-card');
+  const earnedXP = Math.floor(score / 10); // align with games: score -> XP
+  container.innerHTML = `
+    <div class="completion">
+      <h2>Quiz Complete!</h2>
+      <p class="final-score">Final Score: ${score}</p>
+      <p>You answered all ${quiz.length} questions.</p>
+      <button id="playAgain" class="play-button" type="button">Play Again</button>
+      <a href="/learn" class="play-button" style="margin-left: 0.5rem;">Back to Learning</a>
+    </div>
+  `;
+  // Post XP to backend
+  fetch('/api/add_xp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ xp: earnedXP, activity_type: 'learning', details: 'Completed quiz' })
+  })
+  .then(res => res.json())
+  .then((data) => {
+    // Flash +XP (prefer server value if provided)
+    const xp = (data && typeof data.xp === 'number') ? data.xp : earnedXP;
+    if (typeof showXPFlash === 'function') showXPFlash(xp);
+    if (typeof updateUserStats === 'function') updateUserStats();
+  })
+  .catch(() => {});
+  document.getElementById('playAgain').addEventListener('click', () => {
+    current = 0; score = 0; scoreEl.textContent = '0';
+    document.querySelector('.quiz-card').innerHTML = `
+      <div class="quiz-header">
+        <div class="score-display">Score: <span id="score">0</span></div>
       </div>
-    `);
+      <div class="quiz-body">
+        <h2 id="question">Loading...</h2>
+        <div class="quiz-options" id="options"></div>
+        <div class="quiz-feedback" id="feedback"></div>
+      </div>`;
+    // Rebind elements
+    questionEl = document.getElementById('question');
+    optionsDiv = document.getElementById('options');
+    feedbackEl = document.getElementById('feedback');
+    scoreEl = document.getElementById('score');
+    loadQuestion();
+  });
+}
 
-    const list = el('<div style="margin-top:1rem;display:flex;flex-direction:column;gap:1rem;"></div>');
-    state.questions.forEach((q, idx) => {
-      const qCard = el(`
-        <div style="background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
-          <div style="font-weight:600;margin-bottom:0.5rem;">Q${idx+1}. ${q.question}</div>
-          <div>
-            ${q.choices.map((c,i)=>`
-              <label style="display:block;margin:0.4rem 0;cursor:pointer;">
-                <input type="radio" name="q_${q.id}" value="${i}" ${state.answers[q.id]===i? 'checked':''} />
-                <span style="margin-left:0.5rem;">${c}</span>
-              </label>
-            `).join('')}
-          </div>
-        </div>
-      `);
-      list.appendChild(qCard);
-    });
-
-    root.appendChild(header);
-    root.appendChild(list);
-
-    document.getElementById('reload').onclick = () => startQuiz();
-    document.getElementById('submit').onclick = () => submit();
-
-    // radio change
-    root.querySelectorAll('input[type="radio"]').forEach(r => {
-      r.addEventListener('change', (e) => {
-        const name = e.target.name; // q_<id>
-        const id = parseInt(name.split('_')[1]);
-        state.answers[id] = parseInt(e.target.value);
-      });
-    });
-  }
-
-  function renderResults() {
-    const { score, total, breakdown, xp_awarded } = state.result;
-    const summary = el(`
-      <div style="background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
-          <div><strong>Score:</strong> ${score}/${total}</div>
-          <div><strong>XP Awarded:</strong> +${xp_awarded}</div>
-          <div style="display:flex;gap:0.5rem;">
-            <button id="again" class="play-button">Try Again</button>
-          </div>
-        </div>
-      </div>
-    `);
-
-    const details = el('<div style="margin-top:1rem;display:flex;flex-direction:column;gap:1rem;"></div>');
-    breakdown.forEach((b, idx) => {
-      const q = state.questions.find(x => x.id === b.id);
-      const chosen = state.answers[b.id];
-      const correctChoice = q.choices[b.correctIndex];
-      const chosenText = Number.isInteger(chosen) ? q.choices[chosen] : '(no answer)';
-
-      const card = el(`
-        <div style="background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
-          <div style="font-weight:600;margin-bottom:0.5rem;">Q${idx+1}. ${q.question}</div>
-          <div style="margin-bottom:0.5rem;${b.isCorrect ? 'color:#15803d;' : 'color:#dc2626;'}">
-            ${b.isCorrect ? '✅ Correct' : '❌ Incorrect'}
-          </div>
-          <div><strong>Correct answer:</strong> ${correctChoice}</div>
-          <div><strong>Your answer:</strong> ${chosenText}</div>
-          ${b.explanation ? `<div style="margin-top:0.5rem;">${b.explanation}</div>` : ''}
-        </div>
-      `);
-      details.appendChild(card);
-    });
-
-    root.innerHTML = '';
-    root.appendChild(summary);
-    root.appendChild(details);
-
-    document.getElementById('again').onclick = () => startQuiz();
-  }
-
-  async function startQuiz() {
-    state.submitted = false;
-    state.answers = {};
-    root.innerHTML = '<div style="text-align:center;opacity:0.7;">Loading…</div>';
-    try {
-      const res = await fetch('/api/quiz/start', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ count: 5 }) });
-      const data = await res.json();
-      state.questions = data.questions || [];
-      render();
-    } catch (e) {
-      root.innerHTML = '<div style="text-align:center;color:#dc2626;">Failed to load quiz.</div>';
-      console.error(e);
-    }
-  }
-
-  async function submit() {
-    const answers = Object.keys(state.answers).map(id => ({ id: parseInt(id), selectedIndex: state.answers[id] }));
-    try {
-      const res = await fetch('/api/quiz/submit', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ answers }) });
-      const data = await res.json();
-      state.submitted = true;
-      state.result = data;
-      render();
-    } catch (e) {
-      alert('Failed to submit quiz');
-      console.error(e);
-    }
-  }
-
-  // boot
-  startQuiz();
-})();
+loadQuestion();

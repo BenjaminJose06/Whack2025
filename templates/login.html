@@ -3,406 +3,21 @@
 {% block title %}Login - WHACK2025{% endblock %}
 
 {% block head %}
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(-45deg, #000000, #1a1a1a, #2d2d2d, #000000);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    .login-wrapper {
-        min-height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .login-wrapper::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.03) 2px,
-            rgba(255, 255, 255, 0.03) 4px
-        );
-        animation: backgroundMove 20s linear infinite;
-        pointer-events: none;
-    }
-    
-    @keyframes backgroundMove {
-        0% { transform: translateY(0) rotate(0deg); }
-        100% { transform: translateY(-20px) rotate(1deg); }
-    }
-    
-    .login-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 4rem 2rem;
-        color: white;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-        animation: slideInLeft 1s ease-out;
-    }
-    
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    .login-right {
-        background: white;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        position: relative;
-        animation: slideInRight 1s ease-out;
-    }
-    
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    .login-container {
-        width: 100%;
-        max-width: 500px;
-        padding: 3rem;
-        animation: fadeInUp 1.2s ease-out;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .brand-section {
-        margin-bottom: 4rem;
-    }
-    
-    .brand-logo {
-        font-size: 4rem;
-        font-weight: 900;
-        margin-bottom: 1.5rem;
-        letter-spacing: -2px;
-        animation: textGlow 3s ease-in-out infinite alternate;
-    }
-    
-    @keyframes textGlow {
-        from {
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        to {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
-        }
-    }
-    
-    .brand-tagline {
-        font-size: 1.3rem;
-        opacity: 0.9;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-    
-    .money-image {
-        margin: 2rem 0;
-        text-align: center;
-    }
-    
-    .money-img {
-        max-width: 300px;
-        width: 80%;
-        height: auto;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        transition: all 0.4s ease;
-        animation: float 6s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0) rotate(0deg);
-        }
-        50% {
-            transform: translateY(-10px) rotate(1deg);
-        }
-    }
-    
-    .money-img:hover {
-        transform: scale(1.08) translateY(-5px);
-        box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
-    }
-    
-    .features-list {
-        text-align: left;
-        max-width: 350px;
-    }
-    
-    .feature-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-        font-size: 1.1rem;
-        opacity: 0.9;
-        transition: all 0.3s ease;
-        animation: slideInFeature 0.6s ease-out forwards;
-        opacity: 0;
-    }
-    
-    .feature-item:nth-child(1) { animation-delay: 0.2s; }
-    .feature-item:nth-child(2) { animation-delay: 0.4s; }
-    .feature-item:nth-child(3) { animation-delay: 0.6s; }
-    .feature-item:nth-child(4) { animation-delay: 0.8s; }
-    
-    @keyframes slideInFeature {
-        to {
-            opacity: 0.9;
-            transform: translateX(0);
-        }
-        from {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-    }
-    
-    .feature-item:hover {
-        opacity: 1;
-        transform: translateX(5px);
-    }
-    
-    .feature-icon {
-        font-size: 1.5rem;
-        margin-right: 1rem;
-    }
-    
-    .login-header {
-        text-align: center;
-        margin-bottom: 2.5rem;
-    }
-    
-    .login-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 0.5rem;
-    }
-    
-    .login-subtitle {
-        font-size: 1.2rem;
-        color: #6b7280;
-        margin-bottom: 0;
-    }
-    
-    .login-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-    
-    .form-field {
-        text-align: left;
-    }
-    
-    .form-field label {
-        display: block;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #374151;
-        margin-bottom: 0.75rem;
-    }
-    
-    .form-field input {
-        width: 100%;
-        padding: 1.25rem 1.5rem;
-        font-size: 1.1rem;
-        border: 2px solid #d1d5db;
-        border-radius: 10px;
-        background: #ffffff;
-        color: #1f2937;
-        transition: all 0.4s ease;
-        box-sizing: border-box;
-        position: relative;
-    }
-    
-    .form-field input:focus {
-        outline: none;
-        border-color: #000000;
-        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
-    }
-    
-    .form-field input::placeholder {
-        color: #9ca3af;
-    }
-    
-    .login-button {
-        background: #000000;
-        color: white;
-        padding: 1.5rem 2rem;
-        border: 2px solid #000000;
-        border-radius: 10px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.4s ease;
-        width: 100%;
-        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .login-button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.6s;
-    }
-    
-    .login-button:hover {
-        transform: translateY(-3px);
-        background: #333333;
-        box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.4);
-    }
-    
-    .login-button:hover::before {
-        left: 100%;
-    }
-    
-    .login-button:active {
-        transform: translateY(0);
-    }
-    
-    .login-button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-    
-    .login-footer {
-        text-align: center;
-        padding-top: 1.5rem;
-        border-top: 1px solid #e5e7eb;
-        margin-top: 2rem;
-    }
-    
-    .login-footer p {
-        color: #6b7280;
-        font-size: 1.1rem;
-        margin: 0;
-    }
-    
-    .login-footer a {
-        color: #000000;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-    
-    .login-footer a:hover {
-        color: #333333;
-        text-decoration: underline;
-    }
-    
-    @media (max-width: 768px) {
-        .login-wrapper {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto 1fr;
-        }
-        
-        .login-left {
-            padding: 2rem 1rem;
-            min-height: auto;
-        }
-        
-        .login-right {
-            min-height: auto;
-            padding: 1rem;
-        }
-        
-        .login-container {
-            padding: 2rem 1.5rem;
-        }
-        
-        .brand-logo {
-            font-size: 2.5rem;
-        }
-        
-        .login-title {
-            font-size: 2rem;
-        }
-        
-        .brand-tagline {
-            font-size: 1.1rem;
-        }
-        
-        .features-list {
-            display: none;
-        }
-        
-        .money-image {
-            margin: 1rem 0;
-        }
-        
-        .money-img {
-            max-width: 200px;
-            width: 60%;
-        }
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="login-wrapper">
     <div class="login-left">
+        <div class="left-parallax">
+            <span class="orb1"></span>
+            <span class="orb2"></span>
+            <span class="orb3"></span>
+        </div>
         <div class="brand-section">
             <div class="brand-logo">WHACK2025</div>
-            <div class="brand-tagline">
-                Your gateway to financial literacy and smart money management
+            <div class="brand-tagline" id="brandTagline">
+                <span id="taglineText"></span>
             </div>
         </div>
         
@@ -421,7 +36,7 @@
             </div>
             <div class="feature-item">
                 <span class="feature-icon">•</span>
-                Bank API integration
+                Review bank transactions
             </div>
             <div class="feature-item">
                 <span class="feature-icon">•</span>
@@ -440,16 +55,17 @@
             <form method="POST" class="login-form" id="loginForm">
                 <div class="form-field">
                     <label for="email">Email or Username</label>
-                    <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+                    <input type="text" id="email" name="email" placeholder="Enter your email or username" required autofocus>
                 </div>
                 
-                <div class="form-field">
+                <div class="form-field password-field">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <button type="button" class="toggle-password" aria-label="Show password" id="togglePassword">Show</button>
                 </div>
                 
                 <button type="submit" class="login-button" id="loginButton">
-                    Sign In
+                    Start Learning
                 </button>
             </form>
             
@@ -464,6 +80,33 @@
 {% block scripts %}
 {{ super() }}
 <script>
+    // Typewriter subtitle
+    (function typeTagline(){
+        const text = "Your gateway to financial literacy and smart money management.";
+        const el = document.getElementById('taglineText');
+        if (!el) return;
+        let i = 0;
+        const tick = () => {
+            if (i <= text.length) {
+                el.textContent = text.slice(0, i++);
+                setTimeout(tick, 18);
+            }
+        };
+        tick();
+    })();
+
+    // Show/Hide password toggle
+    const togglePassword = document.getElementById('togglePassword');
+    const pwd = document.getElementById('password');
+    if (togglePassword && pwd) {
+        togglePassword.addEventListener('click', () => {
+            const show = pwd.getAttribute('type') === 'password';
+            pwd.setAttribute('type', show ? 'text' : 'password');
+            togglePassword.textContent = show ? 'Hide' : 'Show';
+            togglePassword.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+    }
+
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         const button = document.getElementById('loginButton');
         const originalText = button.textContent;
@@ -526,6 +169,11 @@
         field.style.opacity = '0';
         field.style.transform = 'translateY(20px)';
         field.style.transition = 'all 0.6s ease';
+    });
+
+    // Animate features (staggered)
+    document.querySelectorAll('.feature-item').forEach((item, idx) => {
+        setTimeout(() => item.classList.add('in'), 300 + idx * 300);
     });
 </script>
 {% endblock %}

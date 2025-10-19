@@ -36,7 +36,8 @@
   function setLoading(isLoading) {
     sendBtn.disabled = isLoading;
     input.disabled = isLoading;
-    loading.style.display = isLoading ? 'block' : 'none';
+    if (isLoading) loading.classList.add('is-active');
+    else loading.classList.remove('is-active');
   }
 
   async function sendMessage(prompt) {

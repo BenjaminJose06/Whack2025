@@ -2,19 +2,42 @@
 
 {% block title %}Advisor - WHACK2025{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/advisor.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="learning-container">
-    <div class="learning-header">
-        <h1>🧭 Advisor</h1>
-        <p>Ask for financial advice tailored for university students.</p>
-        <a href="{{ url_for('learn_zone') }}" class="back-button">← Back to Learning Zone</a>
+<div class="advisor-full">
+    <div class="advisor-header">
+        <div>
+            <h1>Student Finance Advisor</h1>
+            <p class="advisor-lead">Quick, practical answers on budgeting, spending, saving, credit, and investing basics.</p>
+            <div class="advisor-suggestions">
+                <button class="advisor-suggestion" type="button" data-prompt="Build me a weekly student budget on £70 with rent paid.">Weekly student budget</button>
+                <button class="advisor-suggestion" type="button" data-prompt="How do I start building credit as a student in the UK?">Start building credit</button>
+                <button class="advisor-suggestion" type="button" data-prompt="I want to save £500 in 3 months—give me a simple plan.">Save £500 plan</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Give me 7 cheap student meal prep ideas under £3 per portion.">Cheap meal prep</button>
+                <button class="advisor-suggestion" type="button" data-prompt="What's the fairest way to split rent and bills in a shared house?">Split rent fairly</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Explain student overdrafts: how they work, risks, and how to avoid fees.">Overdraft guide</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Should I get a student credit card? Pros, cons, and what to watch.">First credit card?</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Give me 5 quick wins to improve my credit score in 30 days.">Boost credit score</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Direct debit vs standing order—what's the difference and when to use each?">Direct debit vs standing order</button>
+                <button class="advisor-suggestion" type="button" data-prompt="How much should I save for an emergency fund as a student?">Emergency fund</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Explain ETFs and index funds in simple terms.">Investing basics</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Best ways to save on transport as a student in the UK?">Travel savings</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Help me audit my subscriptions and cancel what I don't use.">Subscriptions audit</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Is SIM-only better than contract for students? Show numbers.">Phone plan: SIM-only?</button>
+                <button class="advisor-suggestion" type="button" data-prompt="Where can I find scholarships or bursaries I might be eligible for?">Scholarships & bursaries</button>
+            </div>
+        </div>
+        <a href="{{ url_for('bank_zone') }}" class="back-button">Back to Bank Zone</a>
     </div>
 
-    <div class="advisor-panel" style="max-width: 900px; margin: 0 auto;">
-        <div id="advisor-loading" class="advisor-loading" style="display:none;"></div>
-        <div id="advisor-chat" class="advisor-chat" style="background: #fff; border-radius: 12px; padding: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); min-height: 300px; max-height: 60vh; overflow-y: auto;"></div>
-        <form id="advisor-form" class="advisor-form" style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
-            <input id="advisor-input" type="text" placeholder="Ask the advisor..." style="flex:1; padding: 0.75rem 1rem; border-radius: 10px; border: 2px solid #e5e7eb;" required />
+    <div class="advisor-main">
+        <div id="advisor-loading" class="advisor-loading"></div>
+        <div id="advisor-chat" class="advisor-chat"></div>
+        <form id="advisor-form" class="advisor-form">
+            <input id="advisor-input" type="text" placeholder="Ask the advisor..." required />
             <button id="advisor-send" class="play-button" type="submit">Send</button>
         </form>
     </div>
@@ -24,4 +47,14 @@
 {% block scripts %}
 {{ super() }}
 <script src="{{ url_for('static', filename='js/advisor.js') }}"></script>
+<script>
+    // Quick-fill suggestions
+    document.querySelectorAll('.advisor-suggestion').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const input = document.getElementById('advisor-input');
+            input.value = btn.dataset.prompt || btn.textContent.trim();
+            input.focus();
+        });
+    });
+</script>
 {% endblock %}

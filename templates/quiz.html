@@ -3,18 +3,27 @@
 {% block title %}Quiz - WHACK2025{% endblock %}
 
 {% block content %}
-<div class="learning-container">
+<div class="reading-container">
   <div class="learning-header">
-    <h1>🧠 Quiz</h1>
-    <p>Answer a short set of multiple-choice questions. Earn XP for correct answers.</p>
-    <a href="{{ url_for('map_view') }}" class="back-button">← Back to Map</a>
+    <h1>Library Quiz</h1>
+    <p>Quick questions to reinforce what you read.</p>
+    <a href="{{ url_for('learn_zone') }}" class="back-button">Back to Learning</a>
   </div>
 
-  <div id="quiz-root" style="max-width: 900px; margin: 0 auto;"></div>
+  <div class="quiz-card">
+    <div class="quiz-header">
+      <div class="score-display">Score: <span id="score">0</span></div>
+    </div>
+    <div class="quiz-body">
+      <h2 id="question">Loading...</h2>
+      <div class="quiz-options" id="options"></div>
+      <div class="quiz-feedback" id="feedback"></div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}" defer></script>
 {% endblock %}

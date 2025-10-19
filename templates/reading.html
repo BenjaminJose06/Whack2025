@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Reading - WHACK2025{% endblock %}
+
+{% block content %}
+<div class="reading-container">
+  <div class="learning-header">
+    <h1>Reading Library</h1>
+    <p>Browse concise, easy-to-read guides.</p>
+    <a href="{{ url_for('learn_zone') }}" class="back-button">Back to Learning</a>
+  </div>
+
+  <div class="reading-layout">
+    <aside class="reading-toc">
+      <div class="toc-title">Table of contents</div>
+      <ul id="tocList" class="toc-list">
+        <li><button class="toc-item" data-page="0">Cover</button></li>
+        <li><button class="toc-item" data-page="1">1 — Who is Capital One?</button></li>
+        <li><button class="toc-item" data-page="2">2 — Credit Cards</button></li>
+        <li><button class="toc-item" data-page="3">3 — Savings</button></li>
+        <li><button class="toc-item" data-page="4">4 — CreditWise</button></li>
+        <li><button class="toc-item" data-page="5">5 — Auto Finance</button></li>
+        <li><button class="toc-item" data-page="6">6 — Card Benefits</button></li>
+        <li><button class="toc-item" data-page="7">7 — Recent Developments</button></li>
+      </ul>
+    </aside>
+
+    <section class="reading-content">
+      <h2 id="readingTitle">Title</h2>
+      <div id="readingBody" class="reading-body"></div>
+      <div class="reading-controls">
+        <button id="prevBtn" class="play-button" type="button">Prev</button>
+        <div class="reading-page" id="pageIndicator">Page 1 of 8</div>
+        <button id="nextBtn" class="play-button" type="button">Next</button>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+const pages = [
+  { title: "Capital One — Mini Guide", lines: [
+    "A tiny library book about Capital One.",
+    "Use ← → or the buttons to flip pages.",
+    "Press 'C' to jump to the contents.",
+  ]},
+  { title: "Who is Capital One?", lines: [
+    "Capital One rethought credit cards using data & technology and now offers a range of banking services to millions.",
+    "The company emphasizes digital tools."
+  ]},
+  { title: "Credit Cards — Rewards & Choices", lines: [
+    "Capital One provides travel, cash-back, student and business cards.",
+    "Cards vary by rewards, fees, and required credit level.",
+    "Compare cards by rewards and benefits."
+  ]},
+  { title: "Savings — 360 Performance", lines: [
+    "The 360 Performance Savings account offers a competitive variable APY with no monthly fees or minimums.",
+    "Accounts are FDIC insured.",
+    "Designed as a simple online high-yield option."
+  ]},
+  { title: "CreditWise — Know Your Credit", lines: [
+    "CreditWise is a free monitoring tool that lets you check scores and reports without hurting your credit.",
+    "It sends alerts for important report changes to help you act."
+  ]},
+  { title: "Auto Finance — Car Loans", lines: [
+    "Capital One Auto Finance supports prequalify flows and personalized rate tools for new and used car loans.",
+    "These help shoppers compare rates before visiting dealers."
+  ]},
+  { title: "Card Benefits & Digital Tools", lines: [
+    "Benefits include fraud protection, virtual cards, travel perks, and partner offers.",
+    "Capital One emphasizes mobile app features for easy management and alerts."
+  ]},
+  { title: "Recent Developments", lines: [
+    "Capital One has been active in strategic moves and market changes that may affect customers, including large acquisitions and occasional operational incidents covered in the press."
+  ]},
+];
+
+let currentPage = 0;
+
+function renderPage(index) {
+  const total = pages.length;
+  const i = Math.max(0, Math.min(index, total - 1));
+  currentPage = i;
+  const pg = pages[i];
+  document.getElementById('readingTitle').textContent = pg.title;
+  const body = document.getElementById('readingBody');
+  body.innerHTML = pg.lines.map(t => `<p>${t}</p>`).join('');
+  document.getElementById('pageIndicator').textContent = `Page ${i + 1} of ${total}`;
+  // Update active toc state
+  document.querySelectorAll('#tocList .toc-item').forEach(btn => {
+    if (Number(btn.dataset.page) === i) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+}
+
+function gotoPage(n) { renderPage(n); }
+
+document.getElementById('nextBtn').addEventListener('click', () => gotoPage(currentPage + 1));
+document.getElementById('prevBtn').addEventListener('click', () => gotoPage(currentPage - 1));
+document.querySelectorAll('#tocList .toc-item').forEach(btn =>
+  btn.addEventListener('click', () => gotoPage(Number(btn.dataset.page)))
+);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') gotoPage(currentPage + 1);
+  if (e.key === 'ArrowLeft') gotoPage(currentPage - 1);
+});
+
+renderPage(currentPage);
+</script>
+{% endblock %}

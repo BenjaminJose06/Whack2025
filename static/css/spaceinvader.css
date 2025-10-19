@@ -1,0 +1,246 @@
+/* Modern Space Invaders styling (professional look, no retro fonts) */
+
+:root {
+  --bg: #0b1220;
+  --card: #0f172a;
+  --muted: #94a3b8;
+  --text: #e2e8f0;
+  --primary: #00a9e0; /* brandish blue */
+  --danger: #f44336;
+  --ring-good: rgba(0, 169, 224, 0.45);
+  --ring-bad: rgba(244, 67, 54, 0.45);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 1200px at 50% -200px, #11203b 0%, var(--bg) 40%, #060a13 100%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  display: grid;
+  place-items: center;
+}
+
+#game-canvas {
+  width: 640px;
+  height: 640px;
+  max-width: 98vw;
+  max-height: 92vh;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.3);
+}
+
+.ui-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none; /* allow canvas interaction unless overlay element is visible */
+}
+
+.start-screen, .game-over-screen, .quiz-screen {
+  position: absolute;
+  inset: 0;
+  display: none; /* toggled to flex when active */
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(800px 600px at 50% -120px, rgba(17,32,59,0.6) 0%, rgba(11,18,32,0.85) 35%, rgba(11,18,32,0.95) 100%);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  gap: 8px;
+}
+
+/* Stack game-over content vertically with consistent spacing */
+.game-over-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  gap: 8px;
+}
+.game-over-screen .final-score { font-size: 20px; color: var(--text); margin-top: 4px; }
+.game-over-screen .final-wave { font-size: 16px; color: var(--muted); margin-top: -4px; }
+.game-over-screen .btn-row { margin-top: 10px; }
+
+.start-screen > *, .game-over-screen > *, .quiz-card {
+  pointer-events: auto;
+}
+
+.start-screen h1, .game-over-screen h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  letter-spacing: 0.5px;
+}
+
+.start-screen p, .game-over-screen p {
+  margin: 8px 0 20px;
+  color: var(--muted);
+}
+
+.hint-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 8px 0 16px;
+  color: var(--muted);
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.sep { opacity: 0.5; }
+.hint-text { opacity: 0.85; }
+
+.primary, .ghost-button, .quiz-answers button {
+  appearance: none;
+  border: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.primary:hover { filter: brightness(1.05); }
+.primary:active { transform: translateY(1px); }
+
+.ghost-button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.14);
+  text-decoration: none;
+}
+
+.ghost-button:hover { border-color: rgba(255,255,255,0.26); color: #fff; }
+.ghost-button:active { transform: translateY(1px); }
+
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.final-score, .final-wave { color: var(--muted); }
+
+.quiz-screen { display: none; }
+.quiz-card {
+  position: relative;
+  width: min(560px, 92vw);
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.05);
+  padding: 20px;
+}
+
+.quiz-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+}
+
+.quiz-text { color: var(--text); margin: 4px 0 14px; }
+
+.quiz-answers { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.quiz-answers button { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
+.quiz-answers button:hover { background: rgba(255,255,255,0.12); }
+
+/* Quiz ring pulse feedback */
+.quiz-card::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+}
+.quiz-card.quiz-correct::after { animation: ringPulseGood 0.6s ease forwards; }
+.quiz-card.quiz-incorrect::after { animation: ringPulseBad 0.6s ease forwards; }
+
+@keyframes ringPulseGood {
+  0% { box-shadow: 0 0 0 0 var(--ring-good); opacity: 1; }
+  100% { box-shadow: 0 0 0 16px transparent; opacity: 0; }
+}
+@keyframes ringPulseBad {
+  0% { box-shadow: 0 0 0 0 var(--ring-bad); opacity: 1; }
+  100% { box-shadow: 0 0 0 16px transparent; opacity: 0; }
+}
+
+#pointsFeedback {
+  position: fixed;
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%) translateY(0);
+  font-weight: 800;
+  font-size: 22px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 70;
+}
+.show-points { animation: pointsAnimation 3s ease-out; }
+@keyframes pointsAnimation {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.98); }
+  12% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.04); }
+  85% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.02); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(1); }
+}
+
+/* In-game top-right Exit link */
+.in-game-exit {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(17, 24, 39, 0.7);
+  color: #e2e8f0;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
+}
+.in-game-exit:hover { color: #fff; border-color: rgba(255,255,255,0.28); }
+.in-game-exit:active { transform: translateY(1px); }
+
+@media (max-width: 720px) {
+  #game-canvas { max-height: 62vh; }
+  .start-screen h1 { font-size: 28px; }
+}

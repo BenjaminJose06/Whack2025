@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Investing & Credit - WHACK2025{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <div class="game-header">
+        <h1>Investing & Credit</h1>
+        <p>A starter space for investing and credit education. Features coming soon.</p>
+        <a href="{{ url_for('bank_zone') }}" class="back-button">Back to Bank Zone</a>
+    </div>
+
+    <div class="games-list">
+        <div class="game-row">
+            <div class="game-meta">
+                <h3>Coming Soon</h3>
+                <p>We’re planning tools to simulate investments, understand credit scores, and build habits.</p>
+            </div>
+            <a href="{{ url_for('bank_zone') }}" class="play-button play-small">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

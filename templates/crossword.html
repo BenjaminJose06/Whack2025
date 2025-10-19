@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/crossword.css') }}">
+    <link rel="preload" as="script" href="{{ url_for('static', filename='js/crossword.js') }}">
+    <meta name="description" content="Crossword built from finance terms. Solve clues and earn XP.">
+    <meta name="color-scheme" content="light dark">
+    <style>
+        /* Fallback in case CSS fails to load */
+        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    </style>
+    <script>
+        // Local XP award helper (also triggers any global fetch interceptor if present)
+        function awardXP(points, activityType, details) {
+            if (!points || points <= 0) return;
+            try { if (typeof showPointsFeedback === 'function') showPointsFeedback('+' + points + ' XP!', '#22c55e'); } catch {}
+            fetch('/api/add_xp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ xp: points, activity_type: activityType || 'game', details: details || 'Crossword' })
+            }).catch(() => {});
+        }
+    </script>
+</head>
+<body>
+    <div id="pointsFeedback" aria-live="polite"></div>
+
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div id="startScreen" class="start-screen">
+            <h1>Crossword</h1>
+            <p>Solve the clues using finance vocabulary. Each puzzle is randomly generated.</p>
+            <button id="startButton" class="primary">Start</button>
+            <div class="start-actions">
+                <a class="exit-link" href="/games" aria-label="Back to Game Zone">Back to Game Zone</a>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen" style="display:none;">
+            <div class="header-row">
+                <a class="back-button secondary" href="/games" aria-label="Back to Game Zone">← Back</a>
+                <h1>Crossword</h1>
+                <div class="score-wrap"><strong>Filled:</strong> <span id="filledCount">0</span>/<span id="totalLetters">0</span></div>
+            </div>
+
+            <div class="content-row">
+                <div class="grid-wrap">
+                    <div id="crosswordGrid" class="grid" role="grid" aria-label="Crossword grid"></div>
+                </div>
+                <div class="clues-wrap">
+                    <div class="clues-section">
+                        <h2>Across</h2>
+                        <ol id="acrossClues" class="clues-list"></ol>
+                    </div>
+                    <div class="clues-section">
+                        <h2>Down</h2>
+                        <ol id="downClues" class="clues-list"></ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button id="newGameButton" class="secondary">New Puzzle</button>
+                <button id="checkButton" class="ghost">Check</button>
+            </div>
+        </div>
+
+        <!-- Game Over -->
+        <div id="gameOverScreen" class="game-over" style="display:none;">
+            <h1>Nice work!</h1>
+            <p class="final-score">You solved the crossword.</p>
+            <p class="final-score"><strong>Letters:</strong> <span id="finalLetters">0</span></p>
+            <button id="playAgainButton" class="primary">Play Again</button>
+            <div class="start-actions">
+                <a class="exit-link" href="/games" aria-label="Back to Game Zone">Back to Game Zone</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/crossword.js') }}" defer></script>
+</body>
+</html>

@@ -12,109 +12,100 @@ body {
     background: #f5f7fa;
 }
 
-/* Navigation Bar */
+/* Global XP flash */
+#xpFlash {
+    position: fixed;
+    left: 50%;
+    top: 72px; /* just below navbar */
+    transform: translateX(-50%) translateY(-8px);
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); /* vibrant green */
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    box-shadow: 0 10px 26px rgba(34,197,94,0.45), 0 0 16px rgba(34,197,94,0.35), inset 0 0 0 1px rgba(255,255,255,0.22);
+    opacity: 0;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 1100; /* above navbar (1000) */
+    pointer-events: none;
+}
+#xpFlash.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+/* ========================= */
+/* ===== Navigation Bar ==== */
+/* ========================= */
 .navbar {
-    background: #4a5568;
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Capital One–style navy gradient */
+    background: linear-gradient(90deg, #0b1733 0%, #003c71 100%);
+    color: #fff;
+    padding: 1.4rem 0.8rem; /* slightly taller for spacing */
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    padding: 0 2rem;
-}
-
-.nav-top {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    justify-content: space-between;
 }
 
-.nav-bottom {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.nav-brand h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.nav-user {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.user-avatar {
-    position: relative;
-}
-
-.avatar-circle {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #333;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    border: 3px solid white;
-}
-
-.level-text {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.user-username {
+/* --- Left: Logout Button --- */
+.logout-btn {
+    /* Brand red accent */
+    background: linear-gradient(135deg, #d0343a 0%, #ff5c5c 100%);
+    color: #fff;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
-    color: white;
+    border: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+.logout-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
-.user-email {
-    font-size: 0.8rem;
-    opacity: 0.8;
+/* --- Center: Game Title + XP Bar --- */
+.nav-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    gap: 0.55rem; /* increased gap to stop overlap */
+    min-height: 3.5rem; /* ensures breathing space */
 }
 
+.nav-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    /* Cyan to navy gradient for title */
+    background: linear-gradient(90deg, #00a9e0, #003c71);
+    background-clip: text; /* standard property for compatibility */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.25rem; /* slight separation from XP bar */
+}
+
+/* XP Bar */
 .xp-bar {
     position: relative;
-    width: 90%;
-    height: 25px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.3);
-    max-width: 1000px;
-}
-
-.xp-progress {
-    height: 100%;
-    background: linear-gradient(90deg, #00d4ff 0%, #090979 100%);
+    width: 270px;
+    height: 16px;
+    background: rgba(255,255,255,0.12);
     border-radius: 10px;
-    transition: width 0.5s ease;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .xp-text {
@@ -122,49 +113,117 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    opacity: 0.95;
+    z-index: 1;              /* ensure it renders above the fill */
+    width: 100%;             /* keep centered text fully inside bar */
+    text-align: center;
+    pointer-events: none;
 }
 
-.logout-btn {
-    background: rgba(255,255,255,0.2);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.3);
+.xp-progress {
+    height: 100%;
+    /* Cyan to navy progress fill */
+    background: linear-gradient(90deg, #00a9e0, #003c71);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(0,169,224,0.45);
 }
 
-.logout-btn:hover {
-    background: rgba(255,255,255,0.3);
-    transform: translateY(-2px);
+/* --- Right: Username + Level --- */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem; /* more separation between level and username */
+    white-space: nowrap;
 }
 
-/* Flash Messages */
+.user-name {
+    font-weight: 800;
+    font-size: 1.45rem;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 6px rgba(255,255,255,0.2);
+}
+
+.level-badge {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 1.6rem; /* bigger level */
+    color: #fff;
+    box-shadow: 0 0 12px rgba(34,197,94,0.55);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .nav-title {
+        font-size: 1.4rem;
+    }
+    .xp-bar {
+        width: 200px;
+    }
+    .user-name {
+        font-size: 1.1rem;
+    }
+    .level-badge {
+        font-size: 1.1rem;
+    }
+}
+
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .nav-title {
+        font-size: 1.4rem;
+    }
+    .xp-bar {
+        width: 200px;
+    }
+    .user-name {
+        font-size: 1.1rem;
+    }
+    .level-badge {
+        font-size: 1.1rem;
+    }
+}
+
+/* ========================= */
+/* ===== Flash Messages ==== */
+/* ========================= */
 .flash-messages {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    z-index: 1001;
+    position: relative; /* sits in normal flow under the navbar */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 900; /* below navbar (1000) */
 }
 
 .flash-message {
-    padding: 1rem 1.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 300px;
-    animation: slideIn 0.3s ease-out;
+    position: relative;
+    padding: 0.85rem 3rem 0.85rem 1.25rem;
+    margin: 0; /* full-width bar with no side margin */
+    border-radius: 0; /* flush bar */
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    animation: dropIn 0.25s ease-out;
     transition: opacity 0.3s ease;
+    text-align: center; /* center message text */
 }
-
 .flash-success {
     background: #10b981;
     color: white;
@@ -186,18 +245,15 @@ body {
     color: inherit;
     font-size: 1.2rem;
     cursor: pointer;
-    margin-left: 1rem;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+@keyframes dropIn {
+    from { transform: translateY(-8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* Authentication Pages */
@@ -317,7 +373,11 @@ body {
 
 .learning-header h1 {
     font-size: 3rem;
-    color: #333;
+    /* Capital One–style cyan to navy gradient title */
+    background: linear-gradient(90deg, #00a9e0, #003c71);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
 }
 
@@ -343,10 +403,49 @@ body {
     box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
 
-.lessons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+/* Compact list layout for Learning Zone */
+.lessons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.lesson-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 60, 113, 0.08);
+    border-left: 4px solid #00a9e0;
+    /* unified hover animation with game rows */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.2s ease;
+}
+
+.lesson-row h3 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.2rem;
+    color: #0b1733;
+}
+
+.lesson-row p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.lesson-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    max-width: calc(100% - 120px);
+}
+
+.open-small {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
 }
 
 .lesson-card {
@@ -406,6 +505,12 @@ body {
     font-weight: 500;
 }
 
+/* Ensure compact row variant doesn't inherit large padding/centering */
+.lesson-card.lesson-row {
+    padding: 0.9rem 1.1rem 0.9rem 0.85rem; /* reduce left padding */
+    text-align: left;
+}
+
 /* Game Zone Styles */
 .game-container {
     max-width: 1200px;
@@ -421,6 +526,11 @@ body {
 .game-header h1 {
     font-size: 3rem;
     color: #333;
+    /* Capital One–style cyan to navy gradient title */
+    background: linear-gradient(90deg, #00a9e0, #003c71);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
 }
 
@@ -430,29 +540,123 @@ body {
     margin-bottom: 2rem;
 }
 
-.games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+/* Compact list layout for Game Zone */
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.game-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 60, 113, 0.08);
+    border-left: 4px solid #00a9e0;
+    /* unified hover animation with lesson rows */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.2s ease;
+}
+
+/* Consistent hover effect for both lesson and game rows */
+.lesson-row:hover,
+.game-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 60, 113, 0.16);
+    border-left-color: #003c71; /* deepen brand accent on hover */
+}
+
+.game-row h3 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.2rem;
+    color: #0b1733;
+}
+
+.game-row p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.game-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1 1 auto; /* allow text to take remaining space */
+    min-width: 0;   /* prevent overflow */
+}
+
+/* Right-side container for icon + Play button */
+.game-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px; /* much more spacing */
+}
+
+.game-row-icon {
+    width: 64px;  /* much bigger */
+    height: 64px;
+    border-radius: 50%; /* circular */
+    padding: 6px; /* visual breathing room */
+    box-shadow: 0 6px 16px rgba(0, 60, 113, 0.22);
+    background: #ffffff;
+    object-fit: contain;
+    border: 1px solid rgba(0, 60, 113, 0.12);
+}
+
+/* Align the Play button nicely within rows */
+.game-row .play-button { margin-top: 0; }
+
+/* Responsive adjustment: reduce icon size on narrow screens */
+@media (max-width: 520px) {
+    .game-row-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            padding: 4px;
+    }
+    .game-actions { gap: 14px; }
+}
+
+.play-small {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
 }
 
 .game-card {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 24px rgba(0, 60, 113, 0.08);
     text-align: center;
     transition: all 0.3s ease;
+    border-top: 4px solid #00a9e0; /* brand accent */
 }
 
 .game-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 18px 36px rgba(0, 60, 113, 0.18);
 }
 
 .game-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+}
+.game-icon {
+    font-size: 1.6rem;
+    margin: 0 auto 1rem;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: linear-gradient(135deg, #00a9e0, #003c71);
+    box-shadow: 0 6px 16px rgba(0, 60, 113, 0.25);
 }
 
 .game-card h3 {
@@ -479,25 +683,31 @@ body {
 }
 
 .play-button {
-    background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+    background: linear-gradient(135deg, #00a9e0 0%, #003c71 100%);
     color: white;
     padding: 0.75rem 2rem;
     border: none;
     border-radius: 25px;
     font-size: 1.1rem;
     font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
     text-decoration: none;
-    display: inline-block;
+    box-shadow: 0 10px 20px rgba(0, 169, 224, 0.25);
 }
 
 .play-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(252, 70, 107, 0.3);
+    box-shadow: 0 12px 22px rgba(0, 60, 113, 0.35);
     color: white;
     text-decoration: none;
+}
+
+/* Game page specific back button brand override */
+.game-container .back-button {
+    background: linear-gradient(135deg, #00a9e0 0%, #003c71 100%);
 }
 
 /* Modal Styles */
@@ -538,38 +748,7 @@ body {
     color: #333;
 }
 
-.close-modal {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.3s ease;
-}
-
-.close-modal:hover {
-    color: #333;
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-/* Game Canvas Styles */
-.game-canvas-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-#gameCanvas {
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    background: #f8fafc;
-    max-width: 100%;
-    height: auto;
-}
+/* Deprecated old card grid and icon circle removed for compact rows */
 
 .game-ui {
     display: flex;
@@ -680,6 +859,70 @@ body {
     background: #fef2f2;
     color: #dc2626;
     border: 1px solid #fecaca;
+}
+
+/* Professional Quiz Styles */
+.quiz-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 60, 113, 0.08);
+    padding: 1.5rem;
+}
+
+.quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.quiz-body h2 {
+    margin: 0 0 0.75rem 0;
+    color: #0b1733;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.quiz-option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quiz-option-btn:hover {
+    border-color: #00a9e0;
+    background: #f0f9ff;
+    transform: translateY(-1px);
+}
+
+.quiz-feedback {
+    min-height: 24px;
+    margin-top: 0.75rem;
+    font-weight: 600;
+}
+
+.quiz-feedback.correct { color: #059669; }
+.quiz-feedback.incorrect { color: #dc2626; }
+
+.completion {
+    text-align: center;
+}
+
+.final-score {
+    font-size: 1.25rem;
+    color: #003c71;
+    font-weight: 700;
+    margin: 0.75rem 0 1rem 0;
 }
 
 /* Advisor Chat Styles */
@@ -802,4 +1045,131 @@ body {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
+
+/* Reading page layout */
+.reading-container {
+    max-width: 1360px; /* widen container to reduce outer whitespace */
+    margin: 0 auto;
+    padding: 2.25rem;
+}
+
+.reading-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* slightly wider TOC for balance */
+    gap: 2rem;
+}
+
+.reading-toc {
+    background: #ffffff;
+    border-radius: 12px;
+    border-left: 4px solid #00a9e0;
+    box-shadow: 0 6px 14px rgba(0, 60, 113, 0.08);
+    padding: 1.25rem;
+    align-self: start;
+    position: sticky;
+    top: 90px; /* below navbar */
+}
+
+.toc-title {
+    font-weight: 700;
+    color: #0b1733;
+    margin-bottom: 0.5rem;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.toc-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.toc-item:hover {
+    border-color: #00a9e0;
+    background: #f0f9ff;
+}
+
+.toc-item.active {
+    border-color: #003c71;
+    background: #e6f4ff;
+}
+
+.reading-content {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 60, 113, 0.08);
+    padding: 2rem 2.25rem; /* larger card feel */
+    display: flex;            /* make card a flex column */
+    flex-direction: column;
+    min-height: 60vh;         /* ensure enough height so controls sit at the bottom */
+}
+
+.reading-content h2 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(90deg, #00a9e0, #003c71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem; /* larger title */
+}
+
+.reading-body p {
+    margin: 0 0 0.8rem 0;
+    color: #0f172a;
+    line-height: 1.75;
+    font-size: 1.1rem; /* bigger, easier to read */
+}
+
+/* Allow the reading body to take up available space so controls can stick to bottom */
+.reading-body { flex: 1 1 auto; }
+
+.reading-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: auto;  /* pushes controls to the bottom of the card */
+}
+
+.reading-page {
+    color: #475569;
+    font-weight: 600;
+    font-size: 1.15rem; /* larger page indicator numbers */
+}
+
+/* Make reading controls' buttons a bit larger without affecting global buttons */
+.reading-controls .play-button {
+    padding: 0.9rem 2.2rem;
+    font-size: 1.15rem;
+}
+
+@media (max-width: 900px) {
+    .reading-layout {
+        grid-template-columns: 1fr;
+    }
+    .reading-toc {
+        position: static;
+    }
+    .reading-container { padding: 1.5rem; }
+    .reading-content { padding: 1.25rem 1.5rem; min-height: 50vh; }
+    .reading-content h2 { font-size: 1.5rem; }
+    .reading-body p { font-size: 1rem; line-height: 1.6; }
+    .reading-page { font-size: 1.05rem; }
 }
