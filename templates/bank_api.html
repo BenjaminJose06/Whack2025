@@ -215,17 +215,128 @@
         box-shadow: var(--shadow-md);
     }
 
+    .insights-section {
+        margin-top: var(--spacing-3xl);
+        padding-top: var(--spacing-3xl);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .insights-section h2 {
+        color: var(--color-primary);
+        font-size: var(--text-2xl);
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
+    }
+
+    .insights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .insight-card {
+        background: var(--color-surface-elevated);
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        text-align: center;
+        transition: all var(--transition-base);
+    }
+
+    .insight-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--color-primary);
+    }
+
+    .insight-card .icon {
+        font-size: var(--text-3xl);
+        color: var(--color-accent);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .insight-card .value {
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .insight-card .label {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .insight-card .trend {
+        font-size: var(--text-xs);
+        margin-top: var(--spacing-sm);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--radius-sm);
+        display: inline-block;
+    }
+
+    .trend.positive {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .trend.negative {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .categories-breakdown {
+        background: var(--color-surface-elevated);
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        margin-top: var(--spacing-xl);
+    }
+
+    .categories-breakdown h3 {
+        color: var(--color-primary);
+        font-size: var(--text-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .category-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        background: var(--color-surface);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border-subtle);
+    }
+
+    .category-item .category-name {
+        font-weight: 500;
+        color: var(--color-text-primary);
+    }
+
+    .category-item .category-amount {
+        font-weight: 600;
+        color: var(--color-primary);
+    }
+
     @media (max-width: 768px) {
         .bank-container {
             padding: var(--spacing-xl) var(--spacing-md);
         }
-
+        
         .api-content {
             padding: var(--spacing-xl);
         }
         
-        .feature-grid,
         .bank-buttons {
+            grid-template-columns: 1fr;
+        }
+
+        .insights-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -236,127 +347,34 @@
 <div class="bank-container">
     <div class="bank-header">
         <h1>Banking Portal</h1>
-        <p>Secure API integration for comprehensive financial analysis</p>
+        <p>Connect your bank account to analyze spending patterns and gain financial insights</p>
         <a href="{{ url_for('map_view') }}" class="back-button">
             <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
     </div>
 
     <div class="api-content">
-        <div class="api-section">
-            <h2>Overview</h2>
-            <p>This portal provides secure access to bank transaction data through API integration. Connect your accounts to analyze spending patterns, categorize transactions, and gain actionable insights into your financial habits.</p>
-            
-            <div class="status-box">
-                <h3>
-                    <i class="fa-solid fa-code"></i>
-                    Development Status
-                </h3>
-                <p><strong>Implementation Required:</strong></p>
-                <p>• Bank API authentication and connection setup</p>
-                <p>• Transaction fetching and display interface</p>
-                <p>• Data visualization for spending analysis</p>
-                <p>• Category-based transaction filtering</p>
-                <p>• Export functionality for transaction data</p>
-            </div>
-        </div>
-
-        <div class="api-section">
-            <h2>Planned Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-shield-halved"></i> Secure Authentication</h3>
-                    <ul>
-                        <li>OAuth 2.0 bank connections</li>
-                        <li>Encrypted credential storage</li>
-                        <li>Multi-bank support</li>
-                        <li>Session management</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-chart-bar"></i> Transaction Analysis</h3>
-                    <ul>
-                        <li>Real-time transaction fetching</li>
-                        <li>Automatic categorization</li>
-                        <li>Spending pattern analysis</li>
-                        <li>Monthly/yearly summaries</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-chart-pie"></i> Data Visualization</h3>
-                    <ul>
-                        <li>Interactive charts and graphs</li>
-                        <li>Category breakdown analysis</li>
-                        <li>Timeline visualization</li>
-                        <li>Budget comparisons</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-file-export"></i> Export & Reports</h3>
-                    <ul>
-                        <li>CSV/Excel export</li>
-                        <li>PDF financial reports</li>
-                        <li>Custom date filtering</li>
-                        <li>Scheduled generation</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="api-section">
-            <h2>Example API Structure</h2>
-            <p>Proposed endpoint structure for the banking integration:</p>
-            
-            <div class="api-demo">
-<pre><span class="method">GET</span> <span class="endpoint">/api/banks/connect</span>
-Initiate bank connection flow
-
-<span class="method">GET</span> <span class="endpoint">/api/transactions</span>
-Fetch user's transactions
-Parameters:
-  - start_date: YYYY-MM-DD
-  - end_date: YYYY-MM-DD  
-  - category: string (optional)
-  - limit: integer (default: 100)
-
-<span class="method">POST</span> <span class="endpoint">/api/transactions/categorize</span>
-Categorize transactions automatically
-Body: { "transaction_ids": [...] }
-
-<span class="method">GET</span> <span class="endpoint">/api/analytics/spending</span>
-Get spending analytics and insights</pre>
-            </div>
-        </div>
-
         <div class="connect-section">
             <h2>Connect Your Bank Account</h2>
             <p>Begin by connecting your bank account to access transaction data</p>
             
-            <div class="status-box">
-                <h3><i class="fa-solid fa-wrench"></i> Implementation Required</h3>
-                <p>Bank connection buttons and authentication flow to be implemented</p>
+            <div id="accounts-list" class="accounts-list" style="margin-bottom: var(--spacing-xl);">
+                <!-- Connected accounts will be displayed here -->
             </div>
             
             <div class="bank-buttons">
-                <button class="connect-button" onclick="showTodoAlert()">
-                    <i class="fa-solid fa-building-columns"></i>
-                    Chase Bank
+                <button class="connect-button" onclick="connectBank()">
+                    <i class="fa-solid fa-plus"></i>
+                    Connect Bank Account
                 </button>
-                <button class="connect-button" onclick="showTodoAlert()">
-                    <i class="fa-solid fa-building-columns"></i>
-                    Wells Fargo
-                </button>
-                <button class="connect-button" onclick="showTodoAlert()">
-                    <i class="fa-solid fa-building-columns"></i>
-                    Bank of America
-                </button>
-                <button class="connect-button" onclick="showTodoAlert()">
-                    <i class="fa-solid fa-building-columns"></i>
-                    Other Banks
-                </button>
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div id="insights-section" class="insights-section" style="display: none;">
+            <h2>Financial Insights</h2>
+            <div id="insights-grid" class="insights-grid">
+                <!-- Insights will be generated here -->
             </div>
         </div>
     </div>
@@ -365,11 +383,375 @@ Get spending analytics and insights</pre>
 
 {% block scripts %}
 {{ super() }}
-<script>
-    function showTodoAlert() {
-        alert('Bank connection functionality requires implementation.\n\nPlanned features:\n1. OAuth bank authentication\n2. Secure token storage\n3. Transaction data fetching\n4. Real-time updates');
-    }
+<!-- Plaid Link SDK -->
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
-    console.log('Banking Portal loaded - Ready for implementation');
+<script>
+let linkToken = null;
+let linkHandler = null;
+
+// Initialize Plaid Link
+async function initializePlaidLink() {
+    try {
+        const response = await fetch('/api/create_link_token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || data.error) {
+            console.error('Plaid Link Token Error:', data.error);
+            // Show a user-friendly message
+            showStatusMessage('Unable to initialize bank connection. Please check your Plaid API credentials in the .env file.', 'error');
+            return;
+        }
+        
+        linkToken = data.link_token;
+        
+        // Create Plaid Link handler
+        linkHandler = Plaid.create({
+            token: linkToken,
+            onSuccess: async (public_token, metadata) => {
+                console.log('Public token:', public_token);
+                console.log('Institution:', metadata.institution);
+                
+                // Exchange public token for access token
+                await exchangePublicToken(public_token, metadata.institution.name);
+            },
+            onExit: (err, metadata) => {
+                if (err != null) {
+                    console.error('Plaid Link error:', err);
+                }
+            },
+        });
+        
+    } catch (error) {
+        console.error('Error initializing Plaid Link:', error);
+        showStatusMessage('Failed to initialize bank connection. Please try again.', 'error');
+    }
+}
+
+// Show status message to user
+function showStatusMessage(message, type = 'info') {
+    // Create or get status message container
+    let statusDiv = document.getElementById('plaid-status-message');
+    if (!statusDiv) {
+        statusDiv = document.createElement('div');
+        statusDiv.id = 'plaid-status-message';
+        statusDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; max-width: 400px; padding: var(--spacing-lg); border-radius: var(--radius-md); z-index: 9999; box-shadow: var(--shadow-lg);';
+        document.body.appendChild(statusDiv);
+    }
+    
+    // Style based on type
+    const colors = {
+        error: 'background: #fee; border: 1px solid #c33; color: #c33;',
+        success: 'background: #efe; border: 1px solid #3c3; color: #3c3;',
+        info: 'background: var(--color-surface-elevated); border: 1px solid var(--color-border); color: var(--color-text-primary);'
+    };
+    
+    statusDiv.style.cssText += colors[type] || colors.info;
+    statusDiv.textContent = message;
+    statusDiv.style.display = 'block';
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 5000);
+}
+
+// Exchange public token for access token
+async function exchangePublicToken(publicToken, institutionName) {
+    try {
+        const response = await fetch('/api/exchange_public_token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                public_token: publicToken,
+                institution_name: institutionName
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showStatusMessage(`Successfully connected to ${institutionName}!`, 'success');
+            loadConnectedAccounts();
+            loadTransactions();
+        } else {
+            showStatusMessage('Failed to connect bank account: ' + (data.error || 'Unknown error'), 'error');
+        }
+    } catch (error) {
+        console.error('Error exchanging token:', error);
+        showStatusMessage('Failed to connect bank account. Please try again.', 'error');
+    }
+}
+
+// Open Plaid Link
+function connectBank() {
+    if (!linkHandler) {
+        showStatusMessage('Initializing bank connection...', 'info');
+        initializePlaidLink().then(() => {
+            if (linkHandler) {
+                linkHandler.open();
+            } else {
+                showStatusMessage('Failed to initialize. Please check Plaid credentials.', 'error');
+            }
+        });
+    } else {
+        linkHandler.open();
+    }
+}
+
+// Load connected accounts
+async function loadConnectedAccounts() {
+    try {
+        const response = await fetch('/api/connected_accounts');
+        const data = await response.json();
+        
+        if (data.success && data.accounts.length > 0) {
+            const accountsList = document.getElementById('accounts-list');
+            if (accountsList) {
+                accountsList.innerHTML = data.accounts.map(account => `
+                    <div class="account-item">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>${account.institution_name}</span>
+                        <small>Connected ${new Date(account.connected_at).toLocaleDateString()}</small>
+                    </div>
+                `).join('');
+            }
+        }
+    } catch (error) {
+        console.error('Error loading accounts:', error);
+    }
+}
+
+// Load transactions
+async function loadTransactions() {
+    try {
+        const response = await fetch('/api/transactions');
+        const data = await response.json();
+        
+        if (data.success) {
+            displayTransactions(data.transactions);
+        } else {
+            console.error('Error loading transactions:', data.error);
+        }
+    } catch (error) {
+        console.error('Error loading transactions:', error);
+    }
+}
+
+// Display transactions in the UI
+function displayTransactions(transactions) {
+    const container = document.getElementById('transactions-container');
+    
+    if (!container) {
+        // Create transactions container if it doesn't exist
+        const apiContent = document.querySelector('.api-content');
+        const txnSection = document.createElement('div');
+        txnSection.className = 'api-section';
+        txnSection.innerHTML = `
+            <h2>Recent Transactions</h2>
+            <div id="transactions-container"></div>
+        `;
+        apiContent.appendChild(txnSection);
+        return displayTransactions(transactions); // Recursive call
+    }
+    
+    if (transactions.length === 0) {
+        container.innerHTML = '<p>No transactions found.</p>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="transactions-list">
+            ${transactions.map(txn => `
+                <div class="transaction-item">
+                    <div class="txn-details">
+                        <div class="txn-name">${txn.merchant_name || txn.name}</div>
+                        <div class="txn-meta">
+                            <span class="txn-category">${txn.category}</span>
+                            <span class="txn-date">${new Date(txn.date).toLocaleDateString()}</span>
+                            <span class="txn-institution">${txn.institution}</span>
+                        </div>
+                    </div>
+                    <div class="txn-amount ${txn.amount > 0 ? 'debit' : 'credit'}">
+                        $${Math.abs(txn.amount).toFixed(2)}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    // Generate insights from transactions
+    generateInsights(transactions);
+}
+
+// Generate financial insights from transaction data
+function generateInsights(transactions) {
+    if (!transactions || transactions.length === 0) return;
+    
+    // Calculate insights
+    const totalSpent = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
+    const totalIncome = Math.abs(transactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0));
+    const avgTransaction = totalSpent / transactions.filter(t => t.amount > 0).length;
+    const transactionCount = transactions.length;
+    
+    // Category breakdown
+    const categoryTotals = {};
+    transactions.filter(t => t.amount > 0).forEach(txn => {
+        const category = txn.category || 'Uncategorized';
+        categoryTotals[category] = (categoryTotals[category] || 0) + txn.amount;
+    });
+    
+    // Sort categories by amount
+    const sortedCategories = Object.entries(categoryTotals)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+    
+    // Show insights section
+    const insightsSection = document.getElementById('insights-section');
+    insightsSection.style.display = 'block';
+    
+    // Populate insights grid
+    const insightsGrid = document.getElementById('insights-grid');
+    insightsGrid.innerHTML = `
+        <div class="insight-card">
+            <div class="icon"><i class="fa-solid fa-wallet"></i></div>
+            <div class="value">$${totalSpent.toFixed(2)}</div>
+            <div class="label">Total Spent</div>
+        </div>
+        
+        <div class="insight-card">
+            <div class="icon"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div class="value">$${totalIncome.toFixed(2)}</div>
+            <div class="label">Total Income</div>
+        </div>
+        
+        <div class="insight-card">
+            <div class="icon"><i class="fa-solid fa-receipt"></i></div>
+            <div class="value">${transactionCount}</div>
+            <div class="label">Transactions</div>
+        </div>
+        
+        <div class="insight-card">
+            <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="value">$${avgTransaction.toFixed(2)}</div>
+            <div class="label">Avg Transaction</div>
+        </div>
+    `;
+    
+    // Add category breakdown
+    if (sortedCategories.length > 0) {
+        const categoriesHTML = `
+            <div class="categories-breakdown">
+                <h3><i class="fa-solid fa-chart-pie"></i> Top Spending Categories</h3>
+                ${sortedCategories.map(([category, amount]) => `
+                    <div class="category-item">
+                        <span class="category-name">${category}</span>
+                        <span class="category-amount">$${amount.toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        insightsGrid.insertAdjacentHTML('beforeend', categoriesHTML);
+    }
+}
+
+// Replace the old showTodoAlert function
+function showTodoAlert() {
+    connectBank();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initializePlaidLink();
+    loadConnectedAccounts();
+});
+
+console.log('Banking Portal with Plaid integration loaded');
 </script>
+
+<style>
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.transaction-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.txn-details {
+    flex: 1;
+}
+
+.txn-name {
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.txn-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.txn-category {
+    text-transform: capitalize;
+}
+
+.txn-amount {
+    font-weight: 700;
+    font-size: var(--text-lg);
+}
+
+.txn-amount.debit {
+    color: var(--color-error);
+}
+
+.txn-amount.credit {
+    color: var(--color-success);
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.account-item i {
+    color: var(--color-primary);
+}
+
+.account-item small {
+    margin-left: auto;
+    color: var(--color-text-tertiary);
+}
+</style>
 {% endblock %}

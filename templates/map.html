@@ -1,43 +1,151 @@
-{% extends "base.html" %}
-
-{% block title %}Dashboard - FinQuest{% endblock %}
-
-{% block content %}
-<div class="map-container">
-    <div class="zones-grid">
-        <a href="{{ url_for('learn_zone') }}" class="zone learn-zone">
-            <div class="zone-icon">
-                <i class="fa-solid fa-book-open"></i>
-            </div>
-            <h3 class="zone-title">Learning Zone</h3>
-            <p class="zone-description">
-                Master financial concepts through interactive lessons and curated content
-            </p>
-        </a>
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>FinQuest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        <a href="{{ url_for('game_zone') }}" class="zone game-zone">
-            <div class="zone-icon">
-                <i class="fa-solid fa-gamepad"></i>
-            </div>
-            <h3 class="zone-title">Practice Arena</h3>
-            <p class="zone-description">
-                Apply your knowledge through engaging challenges and simulations
-            </p>
-        </a>
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         
-        <a href="{{ url_for('bank_api') }}" class="zone api-zone">
-            <div class="zone-icon">
-                <i class="fa-solid fa-building-columns"></i>
-            </div>
-            <h3 class="zone-title">Banking Portal</h3>
-            <p class="zone-description">
-                Connect and manage your financial accounts securely
-            </p>
-        </a>
+        #pygame-canvas {
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            max-width: 100%;
+            max-height: 90vh;
+        }
+        
+        .quick-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 12px 25px;
+            border-radius: 40px;
+            border: 2px solid #ffd700;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+        
+        .quick-nav a {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .quick-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+        }
+        
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #ffd700;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div class="spinner"></div>
+        <div>Loading FinQuest...</div>
     </div>
-</div>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-{% endblock %}
+    
+    <canvas id="pygame-canvas" width="2000" height="1100" tabindex="0"></canvas>
+    
+    <div class="quick-nav">
+        <a href="{{ url_for('learn_zone') }}">📚 Library</a>
+        <a href="{{ url_for('game_zone') }}">🎮 Arcade</a>
+        <a href="{{ url_for('bank_api') }}">🏦 Bank</a>
+    </div>
+    
+    <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module></script>
+    <script type=module>
+        import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js";
+        
+        // Configuration
+        window.addEventListener('load', async () => {
+            const canvas = document.getElementById('pygame-canvas');
+            const loading = document.getElementById('loading');
+            
+            try {
+                console.log('Loading Pyodide...');
+                const pyodide = await loadPyodide({
+                    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/"
+                });
+                
+                console.log('Loading Pygame package...');
+                await pyodide.loadPackage(['pygame', 'numpy']);
+                
+                console.log('Fetching main.py...');
+                const response = await fetch("{{ url_for('static', filename='pygbag/main.py') }}");
+                const code = await response.text();
+                
+                console.log('Running game...');
+                loading.style.display = 'none';
+                
+                // Run the Python code
+                await pyodide.runPythonAsync(code);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loading.innerHTML = `
+                    <div style="color: #ff6b6b; font-size: 1.2em;">
+                        ⚠️ Loading Error<br>
+                        <div style="font-size: 0.8em; margin-top: 10px;">
+                            Use the quick navigation below
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        // Handle navigation from Python
+        window.navigateToRoute = function(route) {
+            window.location.href = route;
+        };
+    </script>
+</body>
+</html>
