@@ -163,21 +163,34 @@ class Character:
         self.y = y
         self.width = 40
         self.height = 60
-        self.speed = 9.5  # Much faster movement
+        self.speed = 15  # Significantly faster movement
         self.anim_frame = 0
         self.anim_counter = 0
+        self.velocity_x = 0
+        self.velocity_y = 0
         
     def move(self, dx, dy):
-        if dx != 0 or dy != 0:
+        # Smooth interpolation for movement
+        target_vx = dx * self.speed
+        target_vy = dy * self.speed
+        
+        # Smooth acceleration/deceleration
+        self.velocity_x += (target_vx - self.velocity_x) * 0.3
+        self.velocity_y += (target_vy - self.velocity_y) * 0.3
+        
+        if abs(self.velocity_x) > 0.1 or abs(self.velocity_y) > 0.1:
             self.anim_counter += 1
-            if self.anim_counter >= 5:
+            if self.anim_counter >= 4:  # Faster animation for faster movement
                 self.anim_frame = (self.anim_frame + 1) % 4
                 self.anim_counter = 0
                 
-        self.x += dx * self.speed
-        self.y += dy * self.speed
+        self.x += self.velocity_x
+        self.y += self.velocity_y
+        
+        # Constrain to grass area only - don't let character go into sky
+        grass_start = int(HEIGHT * 0.25)  # 275px - where grass begins
         self.x = max(50, min(self.x, WIDTH - self.width - 50))
-        self.y = max(50, min(self.y, HEIGHT - self.height - 50))
+        self.y = max(grass_start + 20, min(self.y, HEIGHT - self.height - 50))
         
     def draw(self, screen):
         # Center point for stickman
@@ -742,6 +755,7 @@ class Game:
         path_w = 92
         center_x = WIDTH // 2
         center_y = HEIGHT // 2
+        grass_start = int(HEIGHT * 0.25)  # 275px - where grass begins
         
         # Horizontal path
         pygame.draw.rect(self.screen, Colors.PATH_DARK,
@@ -751,13 +765,14 @@ class Game:
         pygame.draw.rect(self.screen, Colors.PATH_LIGHT,
                         (0, center_y - path_w // 2, WIDTH, path_w))
         
-        # Vertical path
+        # Vertical path - constrained to grass area only
+        path_height = HEIGHT - grass_start
         pygame.draw.rect(self.screen, Colors.PATH_DARK,
-                        (center_x - path_w // 2 - 8, 0, path_w + 16, HEIGHT))
+                        (center_x - path_w // 2 - 8, grass_start, path_w + 16, path_height))
         pygame.draw.rect(self.screen, Colors.PATH_MID,
-                        (center_x - path_w // 2 - 4, 0, path_w + 8, HEIGHT))
+                        (center_x - path_w // 2 - 4, grass_start, path_w + 8, path_height))
         pygame.draw.rect(self.screen, Colors.PATH_LIGHT,
-                        (center_x - path_w // 2, 0, path_w, HEIGHT))
+                        (center_x - path_w // 2, grass_start, path_w, path_height))
     
     def handle_events(self):
         for event in pygame.event.get():

@@ -100,22 +100,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Add click handlers to lesson rows and their "Open" buttons
-    // lessonCards.forEach(card => {
-    //     card.addEventListener('click', function() {
-    //         const lessonType = this.dataset.lesson;
-    //         if (lessonType === 'reading') {
-    //             window.location.href = '/reading';
-    //             return;
-    //         }
-    //         if (lessonType === 'quiz') {
-    //             window.location.href = '/quiz';
-    //             return;
-    //         }
-    //         openLesson(lessonType);
-    //     });
-    // });
-
+    // Add click handlers to premium cards (new design) and legacy lesson rows
+    const premiumCards = document.querySelectorAll('.premium-card[data-lesson]');
+    
+    // Handler for premium cards
+    premiumCards.forEach(card => {
+        const handler = () => {
+            const lessonType = card.dataset.lesson;
+            if (lessonType === 'reading') { window.location.href = '/reading'; return; }
+            if (lessonType === 'quiz')    { window.location.href = '/quiz';    return; }
+            openLesson(lessonType);
+        };
+        
+        card.addEventListener('click', handler);
+        
+        // Add keyboard accessibility
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handler();
+            }
+        });
+    });
+    
+    // Legacy handler for lesson rows (backward compatibility)
     lessonRows.forEach(row => {
         const handler = () => {
             const lessonType = row.dataset.lesson;

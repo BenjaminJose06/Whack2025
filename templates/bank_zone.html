@@ -3,29 +3,44 @@
 {% block title %}Bank Zone - WHACK2025{% endblock %}
 
 {% block content %}
-<div class="game-container">
-    <div class="game-header">
-        <h1>Bank Zone</h1>
-        <p>Explore banking tools: advisor chat and investing/credit resources</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
+<div class="premium-container">
+    <div class="premium-header">
+        <div class="header-content">
+            <h1 class="premium-title">Banking Suite</h1>
+            <p class="premium-subtitle">Access professional tools and personalized guidance</p>
+        </div>
+        <a href="{{ url_for('map_view') }}" class="premium-back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Return</span>
+        </a>
     </div>
     
-    <div class="games-list">
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>AI Advisor</h3>
-                <p>Chat with a student-friendly financial advisor for quick guidance.</p>
+    <div class="premium-list">
+        <a href="{{ url_for('advisor') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-comments"></i>
             </div>
-            <a href="{{ url_for('advisor') }}" class="play-button play-small">Open</a>
-        </div>
+            <div class="card-content">
+                <h3 class="card-title">AI Advisor</h3>
+                <p class="card-description">Receive personalized financial guidance from our intelligent assistant</p>
+            </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
 
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>Investing & Credit</h3>
-                <p>Learn basics and explore simulated tools. More coming soon.</p>
+        <a href="{{ url_for('invest_tools') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-chart-line"></i>
             </div>
-            <a href="{{ url_for('invest_tools') }}" class="play-button play-small">Open</a>
-        </div>
+            <div class="card-content">
+                <h3 class="card-title">Investing & Credit</h3>
+                <p class="card-description">Explore investment strategies and credit management essentials</p>
+            </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
     </div>
 </div>
 {% endblock %}

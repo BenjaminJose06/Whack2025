@@ -11,3 +11,4 @@ plaid-python==14.0.0
 python-dotenv==1.0.0
 pygame==2.5.2
 pygbag==0.8.7
+google-generativeai==0.8.5

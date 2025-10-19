@@ -3,28 +3,43 @@
 {% block title %}Learning Zone - WHACK2025{% endblock %}
 
 {% block content %}
-<div class="learning-container">
-    <div class="learning-header">
-        <h1>Learning Zone</h1>
-        <p>Expand your financial knowledge through interactive lessons</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
+<div class="premium-container">
+    <div class="premium-header">
+        <div class="header-content">
+            <h1 class="premium-title">Learning Center</h1>
+            <p class="premium-subtitle">Expand your financial knowledge through curated content</p>
+        </div>
+        <a href="{{ url_for('map_view') }}" class="premium-back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Return</span>
+        </a>
     </div>
     
-    <div class="lessons-list">
-        <div class="lesson-row" data-lesson="quiz">
-            <div class="lesson-meta">
-                <h3>Quiz</h3>
-                <p>Test your knowledge with quick questions</p>
+    <div class="premium-list">
+        <div class="premium-card" data-lesson="quiz" role="button" tabindex="0">
+            <div class="card-icon">
+                <i class="fa-solid fa-clipboard-question"></i>
             </div>
-            <button class="play-button open-small" type="button">Open</button>
+            <div class="card-content">
+                <h3 class="card-title">Quiz</h3>
+                <p class="card-description">Evaluate your understanding with targeted questions</p>
+            </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
         </div>
         
-        <div class="lesson-row" data-lesson="reading">
-            <div class="lesson-meta">
-                <h3>Reading</h3>
-                <p>Read bite-sized guides and tips</p>
+        <div class="premium-card" data-lesson="reading" role="button" tabindex="0">
+            <div class="card-icon">
+                <i class="fa-solid fa-book-open"></i>
             </div>
-            <button class="play-button open-small" type="button">Open</button>
+            <div class="card-content">
+                <h3 class="card-title">Reading</h3>
+                <p class="card-description">Explore comprehensive guides and essential insights</p>
+            </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
         </div>
     </div>
     
@@ -32,7 +47,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Lesson Title</h2>
-                <button class="close-modal">&times;</button>
+                <button class="close-modal" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
             <div class="modal-body" id="modalBody">
                 <div class="lesson-content">

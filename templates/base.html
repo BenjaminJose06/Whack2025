@@ -37,8 +37,10 @@
 
         <!-- Right -->
         <div class="nav-right">
-            <div class="level-badge">Level <span class="level-text">{{ user.level if user else 1 }}</span></div>
             <div class="user-name">{{ session.username if session.username else 'User' }}</div>
+            <div class="level-badge">
+                <span class="level-text">{{ user.level if user else 1 }}</span>
+            </div>
         </div>
     </div>
     </nav>

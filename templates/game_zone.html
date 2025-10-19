@@ -3,57 +3,70 @@
 {% block title %}Practice Arena - FinQuest{% endblock %}
 
 {% block content %}
-<div class="game-container">
-    <div class="game-header">
-        <h1>Game Zone</h1>
-        <p>Learn financial skills through fun and engaging games</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">Back to Map</a>
+<div class="premium-container">
+    <div class="premium-header">
+        <div class="header-content">
+            <h1 class="premium-title">Practice Arena</h1>
+            <p class="premium-subtitle">Master financial concepts through interactive experiences</p>
+        </div>
+        <a href="{{ url_for('map_view') }}" class="premium-back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Return</span>
+        </a>
     </div>
     
-    <div class="games-list">
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>Word Search</h3>
-                <p>Find hidden finance terms to boost your money vocabulary.</p>
+    <div class="premium-list">
+        <a href="{{ url_for('game1') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid">A</i>
             </div>
-            <div class="game-actions">
-                <img class="game-row-icon" src="{{ url_for('static', filename='images/word_search-icon.png') }}" alt="Word Search icon" loading="lazy">
-                <a href="{{ url_for('game1') }}" class="play-button play-small">Play</a>
+            <div class="card-content">
+                <h3 class="card-title">Word Search</h3>
+                <p class="card-description">Discover hidden financial terminology to expand your vocabulary</p>
             </div>
-        </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
 
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>Froodle</h3>
-                <p>Jump higher while answering quick finance questions.</p>
+        <a href="{{ url_for('game2') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-gamepad"></i>
             </div>
-            <div class="game-actions">
-                <img class="game-row-icon" src="{{ url_for('static', filename='images/froodle-icon.png') }}" alt="Froodle icon" loading="lazy">
-                <a href="{{ url_for('game2') }}" class="play-button play-small">Play</a>
+            <div class="card-content">
+                <h3 class="card-title">Froodle</h3>
+                <p class="card-description">Elevate your score while mastering quick financial questions</p>
             </div>
-        </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
 
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>Space Invaders</h3>
-                <p>Blast through aliens and level up your money smarts.</p>
+        <a href="{{ url_for('game3') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-rocket"></i>
             </div>
-            <div class="game-actions">
-                <img class="game-row-icon" src="{{ url_for('static', filename='images/space_invader-icon.png') }}" alt="Space Invaders icon" loading="lazy">
-                <a href="{{ url_for('game3') }}" class="play-button play-small">Play</a>
+            <div class="card-content">
+                <h3 class="card-title">Space Invaders</h3>
+                <p class="card-description">Navigate challenges while strengthening money management skills</p>
             </div>
-        </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
 
-        <div class="game-row">
-            <div class="game-meta">
-                <h3>Crossword</h3>
-                <p>Fill a fresh puzzle every time using finance terms and definitions.</p>
+        <a href="{{ url_for('game4') }}" class="premium-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-puzzle-piece"></i>
             </div>
-            <div class="game-actions">
-                <img class="game-row-icon" src="{{ url_for('static', filename='images/crossword-icon.png') }}" alt="Crossword icon" loading="lazy">
-                <a href="{{ url_for('game4') }}" class="play-button play-small">Play</a>
+            <div class="card-content">
+                <h3 class="card-title">Crossword</h3>
+                <p class="card-description">Complete dynamic puzzles using financial terms and definitions</p>
             </div>
-        </div>
+            <div class="card-action">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
     </div>
 </div>
 {% endblock %}

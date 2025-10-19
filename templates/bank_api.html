@@ -5,41 +5,50 @@
 {% block head %}
 <style>
     .bank-container {
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: var(--spacing-3xl) var(--spacing-xl);
+        padding: var(--spacing-4xl) var(--spacing-2xl);
         min-height: calc(100vh - 76px);
     }
 
     .bank-header {
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: var(--spacing-3xl);
-        padding-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-2xl);
         border-bottom: 1px solid var(--color-border);
+    }
+
+    .bank-header-content {
+        flex: 1;
     }
 
     .bank-header h1 {
         font-size: var(--text-4xl);
+        font-weight: 600;
         color: var(--color-primary);
-        margin-bottom: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        letter-spacing: -0.03em;
     }
 
     .bank-header p {
-        font-size: var(--text-lg);
+        font-size: var(--text-base);
         color: var(--color-text-secondary);
-        margin-bottom: var(--spacing-xl);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        margin: 0;
     }
 
     .api-content {
         background: var(--color-surface);
-        border-radius: var(--radius-xl);
-        padding: var(--spacing-3xl);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-2xl);
         border: 1px solid var(--color-border);
-        box-shadow: var(--shadow-md);
     }
 
     .api-section {
-        margin-bottom: var(--spacing-3xl);
+        margin-bottom: var(--spacing-2xl);
     }
 
     .api-section:last-child {
@@ -48,31 +57,35 @@
 
     .api-section h2 {
         color: var(--color-primary);
-        font-size: var(--text-2xl);
+        font-size: var(--text-xl);
+        font-weight: 600;
+        letter-spacing: -0.02em;
         margin-bottom: var(--spacing-lg);
         padding-bottom: var(--spacing-md);
-        border-bottom: 1px solid var(--color-border-subtle);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .api-section p {
         color: var(--color-text-secondary);
-        line-height: 1.8;
-        margin-bottom: var(--spacing-lg);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-md);
+        font-size: var(--text-sm);
     }
 
     .status-box {
         background: var(--color-surface-elevated);
         border: 1px solid var(--color-border);
-        border-left: 3px solid var(--color-accent);
-        border-radius: var(--radius-lg);
-        padding: var(--spacing-xl);
-        margin: var(--spacing-lg) 0;
+        border-left: 2px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-lg);
+        margin: var(--spacing-md) 0;
     }
 
     .status-box h3 {
         color: var(--color-primary);
-        font-size: var(--text-lg);
-        margin-bottom: var(--spacing-sm);
+        font-size: var(--text-base);
+        font-weight: 600;
+        margin-bottom: var(--spacing-xs);
         display: flex;
         align-items: center;
         gap: var(--spacing-sm);
@@ -80,21 +93,21 @@
 
     .status-box p {
         color: var(--color-text-secondary);
-        margin-bottom: var(--spacing-sm);
-        font-size: var(--text-sm);
+        margin-bottom: 0;
+        font-size: var(--text-xs);
     }
 
     .feature-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: var(--spacing-lg);
-        margin-top: var(--spacing-xl);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
     }
 
     .feature-card {
-        background: var(--color-surface-elevated);
-        padding: var(--spacing-xl);
-        border-radius: var(--radius-lg);
+        background: var(--color-surface);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
         border: 1px solid var(--color-border);
         transition: all var(--transition-base);
     }
@@ -107,7 +120,9 @@
 
     .feature-card h3 {
         color: var(--color-primary);
-        font-size: var(--text-lg);
+        font-size: var(--text-base);
+        font-weight: 600;
+        letter-spacing: -0.01em;
         margin-bottom: var(--spacing-md);
         display: flex;
         align-items: center;
@@ -115,23 +130,26 @@
     }
 
     .feature-card h3 i {
-        color: var(--color-text-tertiary);
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
     }
 
     .feature-card ul {
         color: var(--color-text-secondary);
-        padding-left: var(--spacing-lg);
+        padding-left: var(--spacing-md);
         list-style: none;
     }
 
     .feature-card li {
-        margin-bottom: var(--spacing-sm);
+        margin-bottom: var(--spacing-xs);
         position: relative;
         padding-left: var(--spacing-md);
+        font-size: var(--text-xs);
+        line-height: 1.5;
     }
 
     .feature-card li::before {
-        content: '→';
+        content: '•';
         position: absolute;
         left: 0;
         color: var(--color-text-tertiary);
@@ -140,18 +158,18 @@
     .api-demo {
         background: var(--color-primary);
         color: var(--color-text-inverse);
-        padding: var(--spacing-xl);
-        border-radius: var(--radius-lg);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
         font-family: var(--font-mono);
-        margin: var(--spacing-lg) 0;
+        margin: var(--spacing-md) 0;
         overflow-x: auto;
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
     }
 
     .api-demo pre {
         margin: 0;
         white-space: pre-wrap;
-        line-height: 1.8;
+        line-height: 1.6;
     }
 
     .endpoint {
@@ -166,44 +184,47 @@
 
     .connect-section {
         text-align: center;
-        margin-top: var(--spacing-3xl);
-        padding: var(--spacing-3xl);
+        margin-top: var(--spacing-2xl);
+        padding: var(--spacing-2xl);
         background: var(--color-surface-elevated);
-        border-radius: var(--radius-xl);
+        border-radius: var(--radius-lg);
         border: 1px solid var(--color-border);
     }
 
     .connect-section h2 {
         color: var(--color-primary);
-        font-size: var(--text-2xl);
-        margin-bottom: var(--spacing-md);
+        font-size: var(--text-xl);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: var(--spacing-sm);
         border: none;
         padding: 0;
     }
 
     .connect-section > p {
         color: var(--color-text-secondary);
-        margin-bottom: var(--spacing-xl);
+        margin-bottom: var(--spacing-lg);
+        font-size: var(--text-sm);
     }
 
     .bank-buttons {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        display: flex;
+        justify-content: center;
         gap: var(--spacing-md);
-        margin-top: var(--spacing-xl);
+        margin-top: var(--spacing-lg);
     }
 
     .connect-button {
         background: var(--color-primary);
         color: var(--color-text-inverse);
         padding: var(--spacing-md) var(--spacing-xl);
-        border: 1px solid transparent;
+        border: 1px solid var(--color-primary);
         border-radius: var(--radius-md);
         font-size: var(--text-sm);
         font-weight: 500;
         cursor: pointer;
         transition: all var(--transition-base);
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: var(--spacing-sm);
@@ -211,34 +232,37 @@
 
     .connect-button:hover {
         background: var(--color-secondary);
-        transform: translateY(-1px);
+        border-color: var(--color-secondary);
+        transform: translateY(-2px);
         box-shadow: var(--shadow-md);
     }
 
     .insights-section {
-        margin-top: var(--spacing-3xl);
-        padding-top: var(--spacing-3xl);
+        margin-top: var(--spacing-2xl);
+        padding-top: var(--spacing-2xl);
         border-top: 1px solid var(--color-border);
     }
 
     .insights-section h2 {
         color: var(--color-primary);
-        font-size: var(--text-2xl);
-        margin-bottom: var(--spacing-xl);
+        font-size: var(--text-xl);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: var(--spacing-lg);
         text-align: center;
     }
 
     .insights-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: var(--spacing-lg);
-        margin-bottom: var(--spacing-xl);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
     }
 
     .insight-card {
-        background: var(--color-surface-elevated);
-        padding: var(--spacing-xl);
-        border-radius: var(--radius-lg);
+        background: var(--color-surface);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
         border: 1px solid var(--color-border);
         text-align: center;
         transition: all var(--transition-base);
@@ -251,93 +275,278 @@
     }
 
     .insight-card .icon {
-        font-size: var(--text-3xl);
-        color: var(--color-accent);
-        margin-bottom: var(--spacing-md);
-    }
-
-    .insight-card .value {
-        font-size: var(--text-3xl);
-        font-weight: 700;
+        font-size: var(--text-2xl);
         color: var(--color-primary);
         margin-bottom: var(--spacing-sm);
     }
 
+    .insight-card .value {
+        font-size: var(--text-2xl);
+        font-weight: 600;
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-xs);
+        letter-spacing: -0.02em;
+    }
+
     .insight-card .label {
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
         color: var(--color-text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        font-weight: 500;
     }
 
     .insight-card .trend {
         font-size: var(--text-xs);
-        margin-top: var(--spacing-sm);
+        margin-top: var(--spacing-xs);
         padding: var(--spacing-xs) var(--spacing-sm);
         border-radius: var(--radius-sm);
         display: inline-block;
+        font-weight: 500;
     }
 
     .trend.positive {
-        background: #e8f5e9;
-        color: #2e7d32;
+        background: rgba(5, 150, 105, 0.1);
+        color: var(--color-success);
     }
 
     .trend.negative {
-        background: #ffebee;
-        color: #c62828;
+        background: rgba(220, 38, 38, 0.1);
+        color: var(--color-error);
     }
 
     .categories-breakdown {
-        background: var(--color-surface-elevated);
-        padding: var(--spacing-xl);
-        border-radius: var(--radius-lg);
+        background: var(--color-surface);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
         border: 1px solid var(--color-border);
-        margin-top: var(--spacing-xl);
+        margin-top: var(--spacing-md);
     }
 
     .categories-breakdown h3 {
         color: var(--color-primary);
-        font-size: var(--text-lg);
-        margin-bottom: var(--spacing-lg);
+        font-size: var(--text-base);
+        font-weight: 600;
+        margin-bottom: var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
     }
 
     .category-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: var(--spacing-md);
-        margin-bottom: var(--spacing-sm);
-        background: var(--color-surface);
-        border-radius: var(--radius-md);
-        border: 1px solid var(--color-border-subtle);
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-xs);
+        background: var(--color-surface-elevated);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+    }
+
+    .category-item:last-child {
+        margin-bottom: 0;
     }
 
     .category-item .category-name {
         font-weight: 500;
         color: var(--color-text-primary);
+        font-size: var(--text-sm);
     }
 
     .category-item .category-amount {
         font-weight: 600;
         color: var(--color-primary);
+        font-size: var(--text-sm);
+    }
+
+    /* AI Analysis Section */
+    .ai-analysis-section {
+        margin-top: var(--spacing-2xl);
+        padding: var(--spacing-2xl);
+        background: var(--color-surface-elevated);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+    }
+
+    .ai-analysis-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .ai-analysis-header h2 {
+        font-size: var(--text-xl);
+        font-weight: 600;
+        color: var(--color-primary);
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        margin: 0;
+    }
+
+    .ai-analysis-header h2 i {
+        color: var(--color-primary);
+    }
+
+    .analyze-button {
+        background: var(--color-primary);
+        color: var(--color-text-inverse);
+        padding: var(--spacing-md) var(--spacing-xl);
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all var(--transition-base);
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .analyze-button:hover:not(:disabled) {
+        background: var(--color-secondary);
+        border-color: var(--color-secondary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .analyze-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .ai-loading {
+        text-align: center;
+        padding: var(--spacing-3xl);
+    }
+
+    .loading-spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid var(--color-border);
+        border-top: 4px solid var(--color-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto var(--spacing-md);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .ai-loading p {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+    }
+
+    .ai-analysis-content {
+        min-height: 100px;
+    }
+
+    .ai-analysis-result {
+        background: var(--color-surface);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        padding: var(--spacing-xl);
+    }
+
+    .ai-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-xs) var(--spacing-md);
+        background: var(--color-primary);
+        color: var(--color-text-inverse);
+        border-radius: var(--radius-full);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        margin-bottom: var(--spacing-lg);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .ai-text {
+        color: var(--color-text-primary);
+        font-size: var(--text-sm);
+        line-height: 1.8;
+    }
+
+    .ai-text p {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .ai-text strong {
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+
+    .ai-error {
+        text-align: center;
+        padding: var(--spacing-2xl);
+        color: var(--color-error);
+    }
+
+    .ai-error i {
+        font-size: var(--text-3xl);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .ai-error p {
+        margin-bottom: var(--spacing-sm);
+        font-size: var(--text-sm);
+    }
+
+    .ai-error-hint {
+        color: var(--color-text-tertiary);
+        font-size: var(--text-xs);
     }
 
     @media (max-width: 768px) {
         .bank-container {
-            padding: var(--spacing-xl) var(--spacing-md);
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+        
+        .bank-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-lg);
         }
         
         .api-content {
-            padding: var(--spacing-xl);
+            padding: var(--spacing-lg);
         }
         
         .bank-buttons {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .connect-button {
+            width: 100%;
         }
 
         .insights-grid {
             grid-template-columns: 1fr;
+        }
+        
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ai-analysis-header {
+            flex-direction: column;
+            gap: var(--spacing-md);
+            align-items: flex-start;
+        }
+
+        .analyze-button {
+            width: 100%;
+            justify-content: center;
         }
     }
 </style>
@@ -346,10 +555,13 @@
 {% block content %}
 <div class="bank-container">
     <div class="bank-header">
-        <h1>Banking Portal</h1>
-        <p>Connect your bank account to analyze spending patterns and gain financial insights</p>
-        <a href="{{ url_for('map_view') }}" class="back-button">
-            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        <div class="bank-header-content">
+            <h1>Banking Portal</h1>
+            <p>Connect your bank account to analyze spending patterns and gain financial insights</p>
+        </div>
+        <a href="{{ url_for('map_view') }}" class="premium-back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Return</span>
         </a>
     </div>
 
@@ -375,6 +587,26 @@
             <h2>Financial Insights</h2>
             <div id="insights-grid" class="insights-grid">
                 <!-- Insights will be generated here -->
+            </div>
+        </div>
+
+        <!-- AI Analysis Section -->
+        <div id="ai-analysis-section" class="ai-analysis-section" style="display: none;">
+            <div class="ai-analysis-header">
+                <h2><i class="fa-solid fa-brain"></i> AI Financial Analysis</h2>
+                <button id="analyze-btn" class="analyze-button" onclick="analyzeTransactions()">
+                    <i class="fa-solid fa-sparkles"></i>
+                    Analyze with AI
+                </button>
+            </div>
+            
+            <div id="ai-analysis-content" class="ai-analysis-content">
+                <!-- AI analysis will be displayed here -->
+            </div>
+            
+            <div id="ai-loading" class="ai-loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Analyzing your transactions with AI...</p>
             </div>
         </div>
     </div>
@@ -592,9 +824,15 @@ function displayTransactions(transactions) {
     generateInsights(transactions);
 }
 
+// Store transactions globally for AI analysis
+let currentTransactions = [];
+
 // Generate financial insights from transaction data
 function generateInsights(transactions) {
     if (!transactions || transactions.length === 0) return;
+    
+    // Store transactions for AI analysis
+    currentTransactions = transactions;
     
     // Calculate insights
     const totalSpent = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
@@ -617,6 +855,10 @@ function generateInsights(transactions) {
     // Show insights section
     const insightsSection = document.getElementById('insights-section');
     insightsSection.style.display = 'block';
+    
+    // Show AI analysis section
+    const aiSection = document.getElementById('ai-analysis-section');
+    aiSection.style.display = 'block';
     
     // Populate insights grid
     const insightsGrid = document.getElementById('insights-grid');
@@ -663,6 +905,82 @@ function generateInsights(transactions) {
     }
 }
 
+// Analyze transactions with AI
+async function analyzeTransactions() {
+    if (!currentTransactions || currentTransactions.length === 0) {
+        showStatusMessage('No transactions available to analyze', 'error');
+        return;
+    }
+    
+    const loadingDiv = document.getElementById('ai-loading');
+    const contentDiv = document.getElementById('ai-analysis-content');
+    const analyzeBtn = document.getElementById('analyze-btn');
+    
+    // Show loading state
+    loadingDiv.style.display = 'block';
+    contentDiv.innerHTML = '';
+    analyzeBtn.disabled = true;
+    analyzeBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing...';
+    
+    try {
+        const response = await fetch('/api/analyze_transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                transactions: currentTransactions
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            displayAIAnalysis(data.analysis);
+            showStatusMessage('AI analysis complete!', 'success');
+        } else {
+            throw new Error(data.error || 'Analysis failed');
+        }
+    } catch (error) {
+        console.error('AI Analysis Error:', error);
+        contentDiv.innerHTML = `
+            <div class="ai-error">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+                <p>${error.message || 'Failed to analyze transactions. Please try again.'}</p>
+                <p class="ai-error-hint">Make sure GEMINI_API_KEY is set in your .env file</p>
+            </div>
+        `;
+        showStatusMessage('AI analysis failed', 'error');
+    } finally {
+        loadingDiv.style.display = 'none';
+        analyzeBtn.disabled = false;
+        analyzeBtn.innerHTML = '<i class="fa-solid fa-sparkles"></i> Analyze with AI';
+    }
+}
+
+// Display AI analysis results
+function displayAIAnalysis(analysisText) {
+    const contentDiv = document.getElementById('ai-analysis-content');
+    
+    // Format the markdown-style response
+    const formatted = analysisText
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+    
+    contentDiv.innerHTML = `
+        <div class="ai-analysis-result">
+            <div class="ai-badge">
+                <i class="fa-solid fa-robot"></i>
+                Powered by Gemini AI
+            </div>
+            <div class="ai-text">
+                <p>${formatted}</p>
+            </div>
+        </div>
+    `;
+}
+
 // Replace the old showTodoAlert function
 function showTodoAlert() {
     connectBank();
@@ -681,24 +999,25 @@ console.log('Banking Portal with Plaid integration loaded');
 .transactions-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-lg);
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
 }
 
 .transaction-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md);
-    background: var(--color-surface-elevated);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     transition: all var(--transition-base);
 }
 
 .transaction-item:hover {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-sm);
+    transform: translateX(2px);
 }
 
 .txn-details {
@@ -709,11 +1028,12 @@ console.log('Banking Portal with Plaid integration loaded');
     font-weight: 600;
     color: var(--color-primary);
     margin-bottom: var(--spacing-xs);
+    font-size: var(--text-sm);
 }
 
 .txn-meta {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     font-size: var(--text-xs);
     color: var(--color-text-tertiary);
 }
@@ -723,8 +1043,8 @@ console.log('Banking Portal with Plaid integration loaded');
 }
 
 .txn-amount {
-    font-weight: 700;
-    font-size: var(--text-lg);
+    font-weight: 600;
+    font-size: var(--text-base);
 }
 
 .txn-amount.debit {
@@ -739,19 +1059,55 @@ console.log('Banking Portal with Plaid integration loaded');
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-sm);
-    background: var(--color-surface);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    transition: all var(--transition-base);
+}
+
+.account-item:last-child {
+    margin-bottom: 0;
 }
 
 .account-item i {
     color: var(--color-primary);
+    font-size: var(--text-sm);
+}
+
+.account-item span {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
 }
 
 .account-item small {
     margin-left: auto;
     color: var(--color-text-tertiary);
+    font-size: var(--text-xs);
+}
+
+.premium-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: all var(--transition-base);
+    text-decoration: none;
+}
+
+.premium-back-button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-surface-elevated);
+    transform: translateX(-2px);
 }
 </style>
 {% endblock %}

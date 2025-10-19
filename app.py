@@ -7,6 +7,7 @@ import os
 import math
 import plaid
 from plaid.api import plaid_api
+import google.generativeai as genai
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
 from plaid.model.products import Products
@@ -37,6 +38,11 @@ db = SQLAlchemy(app)
 PLAID_CLIENT_ID = os.getenv('PLAID_CLIENT_ID')
 PLAID_SECRET = os.getenv('PLAID_SECRET')
 PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
+
+# Gemini Configuration
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 # Configure Plaid client
 configuration = plaid.Configuration(
@@ -566,6 +572,78 @@ def advisor_chat():
         return jsonify({'bot': content})
     except Exception as e:
         return jsonify({'error': 'Failed to contact LLM backend', 'detail': str(e)}), 500
+
+@app.route('/api/analyze_transactions', methods=['POST'])
+def analyze_transactions():
+    """Use Gemini AI to analyze transactions and provide insights"""
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    if not GEMINI_API_KEY:
+        return jsonify({'error': 'Gemini API not configured. Please add GEMINI_API_KEY to your .env file'}), 500
+    
+    try:
+        data = request.get_json()
+        transactions = data.get('transactions', [])
+        
+        if not transactions:
+            return jsonify({'error': 'No transactions provided'}), 400
+        
+        # Prepare transaction summary for Gemini
+        total_spent = sum(t['amount'] for t in transactions if t['amount'] > 0)
+        total_income = abs(sum(t['amount'] for t in transactions if t['amount'] < 0))
+        
+        # Category breakdown
+        categories = {}
+        for txn in transactions:
+            if txn['amount'] > 0:  # Only expenses
+                cat = txn.get('category', 'Uncategorized')
+                categories[cat] = categories.get(cat, 0) + txn['amount']
+        
+        # Sort categories by spending
+        top_categories = sorted(categories.items(), key=lambda x: x[1], reverse=True)[:5]
+        
+        # Build prompt for Gemini
+        prompt = f"""As a professional financial advisor, analyze these transaction patterns and provide actionable insights:
+
+FINANCIAL SUMMARY:
+- Total Spending: ${total_spent:.2f}
+- Total Income: ${total_income:.2f}
+- Net: ${total_income - total_spent:.2f}
+- Number of Transactions: {len(transactions)}
+
+TOP SPENDING CATEGORIES:
+{chr(10).join([f"- {cat}: ${amt:.2f} ({(amt/total_spent*100):.1f}%)" for cat, amt in top_categories])}
+
+RECENT TRANSACTIONS (sample):
+{chr(10).join([f"- {t['name']}: ${t['amount']:.2f} ({t['category']})" for t in transactions[:10]])}
+
+Please provide:
+1. **Key Insights** (2-3 bullet points about spending patterns)
+2. **Saving Opportunities** (specific areas to reduce spending)
+3. **Budgeting Recommendations** (practical tips for this spending profile)
+4. **Action Items** (3 concrete steps to improve financial health)
+
+Format your response professionally but concisely. Use clear sections with headers. Keep it under 300 words."""
+
+        # Call Gemini API (using gemini-1.5-flash for free tier)
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        response = model.generate_content(prompt)
+        
+        return jsonify({
+            'success': True,
+            'analysis': response.text,
+            'summary': {
+                'total_spent': total_spent,
+                'total_income': total_income,
+                'net': total_income - total_spent,
+                'top_categories': [{'name': cat, 'amount': amt} for cat, amt in top_categories]
+            }
+        })
+    
+    except Exception as e:
+        print(f"Gemini API Error: {e}")
+        return jsonify({'error': f'AI analysis failed: {str(e)}'}), 500
 
 if __name__ == '__main__':
     # Ensure database directory exists and create tables
