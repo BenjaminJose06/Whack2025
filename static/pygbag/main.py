@@ -1,8 +1,3 @@
-"""
-FinQuest - Retro Anime Map (Pygbag WebAssembly)
-Professional next-level retro landing page
-"""
-
 import pygame
 import sys
 import math
@@ -17,7 +12,6 @@ WIDTH = 2000
 HEIGHT = 1100
 FPS = 60
 
-# Retro Anime Color Palette
 class Colors:
     # Sunset sky - vibrant gradient
     SKY_LAYERS = [
@@ -115,7 +109,6 @@ class Particle:
         screen.blit(surf, (self.x - self.size - 1, self.y - self.size - 1))
 
 class Tree:
-    """Defined retro pixel art trees"""
     def __init__(self, x, y, size):
         self.x = x
         self.y = y
@@ -293,7 +286,6 @@ class Building:
             self.draw_prompt(screen)
     
     def draw_arcade(self, screen):
-        # Clean retro arcade building
         wall_y = self.y + 80
         wall_h = self.height - 80
         
@@ -328,7 +320,6 @@ class Building:
         pygame.draw.rect(screen, (200, 40, 70),
                         (roof_x + 8, roof_y + roof_h - 12, roof_w - 16, 6), border_radius=2)
         
-        # ARCADE sign on roof - retro arcade font style
         sign_w = self.width - 35
         sign_h = 50
         sign_x = self.x + 18
@@ -338,9 +329,7 @@ class Building:
         pygame.draw.rect(screen, (255, 235, 60), (sign_x - 3, sign_y - 3, sign_w + 6, sign_h + 6), border_radius=8)
         pygame.draw.rect(screen, (255, 50, 90), (sign_x, sign_y, sign_w, sign_h), border_radius=6)
         
-        # RETRO ARCADE FONT - bold blocky style
         try:
-            # Try to use monospace font for retro feel
             font = pygame.font.SysFont('couriernew', 44, bold=True)
         except:
             font = pygame.font.Font(None, 50)
@@ -348,7 +337,6 @@ class Building:
         text = font.render("ARCADE", True, (255, 235, 60))
         text_rect = text.get_rect(center=(self.x + self.width // 2, sign_y + sign_h // 2))
         
-        # Retro shadow
         shadow = font.render("ARCADE", True, (100, 20, 40))
         screen.blit(shadow, (text_rect.x + 3, text_rect.y + 3))
         screen.blit(text, text_rect)
@@ -372,7 +360,6 @@ class Building:
         pygame.draw.rect(screen, (150, 115, 90), (self.x, wall_y, self.width, wall_h), 3, border_radius=10)
     
     def draw_library(self, screen):
-        # Clean retro library
         wall_y = self.y + 85
         wall_h = self.height - 85
         
@@ -423,7 +410,6 @@ class Building:
         pygame.draw.rect(screen, (130, 85, 55), (sign_x - 3, sign_y - 3, sign_w + 6, sign_h + 6), border_radius=8)
         pygame.draw.rect(screen, (80, 50, 30), (sign_x, sign_y, sign_w, sign_h), border_radius=6)
         
-        # RETRO ARCADE FONT
         try:
             font = pygame.font.SysFont('couriernew', 38, bold=True)
         except:
@@ -432,7 +418,6 @@ class Building:
         text = font.render("LIBRARY", True, (255, 245, 220))
         text_rect = text.get_rect(center=(self.x + self.width // 2, sign_y + sign_h // 2))
         
-        # Retro shadow
         shadow = font.render("LIBRARY", True, (40, 25, 15))
         screen.blit(shadow, (text_rect.x + 3, text_rect.y + 3))
         screen.blit(text, text_rect)
@@ -488,7 +473,6 @@ class Building:
                 pygame.draw.rect(screen, Colors.OFFICE_DARK, (wx, wy, 34, 18), 2, border_radius=2)
     
     def draw_bank(self, screen):
-        # Clean retro bank
         wall_y = self.y + 85
         wall_h = self.height - 85
         
@@ -614,7 +598,6 @@ class Building:
         # Ensure prompt doesn't go off screen horizontally
         prompt_x = max(10, min(prompt_x, WIDTH - prompt_w - 10))
         
-        # Retro-style background with layers
         pygame.draw.rect(screen, (15, 15, 35, 240),
                         (prompt_x, prompt_y, prompt_w, prompt_h),
                         border_radius=12)
@@ -632,7 +615,6 @@ class Building:
                         (prompt_x + 4, prompt_y + 4, prompt_w - 8, prompt_h - 8),
                         2, border_radius=10)
         
-        # RETRO ARCADE FONT
         try:
             font = pygame.font.SysFont('couriernew', 30, bold=True)
         except:
@@ -641,7 +623,6 @@ class Building:
         # Remove emoji from display
         display_name = self.name.replace("🎮 ", "").replace("📚 ", "").replace("🏦 ", "")
         
-        # Retro arcade shadow
         text_msg = f"PRESS SPACE - {display_name}"
         text_shadow = font.render(text_msg, True, (30, 30, 50))
         text_rect = text_shadow.get_rect(center=(self.x + self.width // 2 + 3, prompt_y + prompt_h // 2 + 3))
@@ -716,7 +697,6 @@ class Game:
             
             pygame.draw.line(self.screen, (r, g, b), (0, i), (WIDTH, i))
         
-        # Huge retro cartoon sun at top right
         sun_x = WIDTH - 180
         sun_y = 90
         sun_radius = 75
