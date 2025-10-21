@@ -185,6 +185,19 @@ You can log in, register, and test XP progression, Plaid sandbox accounts, and G
 This project is the official **WHACK2025 Hackathon Submission** — combining gamified financial education, AI-powered advice, and real banking APIs into one interactive experience.
 
 ---
+---
+
+## 👥 Contributors
+
+This project was developed collaboratively for the **WHACK2025 Hackathon** by:
+
+- **Benjamin Jose** ([@BenjaminJose06](https://github.com/BenjaminJose06))  
+- **Hitesh Patel** ([@HariKrishna1008](https://github.com/HariKrishna1008))  
+- **Aadit Nagpal** ([@aadit6](https://github.com/aadit6))  
+- **Subhan Sohail** ([@SUBHAN12234](https://github.com/SUBHAN12234))
+
+We worked together to design, build, and deploy **WHACK2025**, combining skills in  
+Flask development, Pygame integration, financial data APIs, and AI-driven analysis.
 
 ## 🧾 License
 
